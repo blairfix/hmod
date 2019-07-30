@@ -1,22 +1,13 @@
 #include <RcppArmadillo.h>
-using namespace std;
-using namespace Rcpp;
 
-#include <vector>
-#include <math.h>
-#include <algorithm>
+// This function calculates the average hierarchical power
+// of individuals in the input hierarchy_vec.
+// The input vector contains aggregate employment by hierarchical rank.
+
 
 // [[Rcpp::depends(RcppArmadillo)]]
 // [[Rcpp::plugins(cpp11)]]
 // [[Rcpp::export]]
-
-
-/*
-This function calculates the average hierarchical power
-of individuals in the input hierarchy_vec.
-The input vector contains aggregate employment by hierarchical rank.
-*/
-
 
 
 arma::vec hierarchical_power( arma::uvec hierarchy_vec )

@@ -1,6 +1,6 @@
 #include <RcppArmadillo.h>
-using namespace std;
-using namespace Rcpp;
+
+// projects 3d object onto 2d
 
 
 // [[Rcpp::depends(RcppArmadillo)]]

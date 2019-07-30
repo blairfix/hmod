@@ -1,18 +1,37 @@
 #include <RcppArmadillo.h>
-
+#include <math.h>
 #include "exponents.h"
 #include "hierarchy.h"
 #include "hierarchical_power.h"
 
-#include <algorithm>
-#include <math.h>
-#include <vector>
 
-//#define ARMA_DONT_USE_WRAPPER
-////#define ARMA_NO_DEBUG
-//#include <armadillo>
+// This function fits a power-income exponent beta to empirical firms.
+// The inputs are:
+//
+//     a                   --- span of control parameter 1
+//     b                   --- span of control parameter 2
+//     base_employment vec --- vector of employment on rank 1 of each firm
+//     total_employment_vec--- vector of total employment for each firm in base_employment_vec
+//     ceo_ratio_vec       --- a vector of ceo pay ratios for the firms above
+//     firm_mean_pay       --- a vector of mean pay in each firm
+//     ceo_ratio_error_tollerance --- error tolerance for model fit
+//     min_beta            --- left bound of beta
+//     max beta            --- right bound of beta
+//
+//
+// The model uses the bisector method to minimize the error betweened the modelled and empirical
+// ceo ratio. The bisection method works by testing the sign of the error function at two different values of beta.
+// The error function used is simply the difference between modelled and empirical
+// ceo-to-employee pay ratios. We start with left bound of min_beta and right bound of max_beta
+//
+// We first get the error values at these bounds, and then the error at
+// the bisection of these bounds (the first guess). We then look for
+// the interval that contains a sign change, and thus contains the root.
+//
+// The structure of this code consists of a for loop over all firms.
+// Within this loop, we have a while loop that implements the bisector method,
+// until the desired error tolerance is achieved, or the maximum iterations occurs.
 
-using namespace std;
 
 // [[Rcpp::depends(RcppArmadillo)]]
 // [[Rcpp::plugins(cpp11)]]

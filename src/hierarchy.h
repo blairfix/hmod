@@ -2,36 +2,26 @@
 #ifndef HIERARCHY_H
 #define HIERARCHY_H
 
-
-#include <vector>
-#include <math.h>
-#include <algorithm>
-
-#define ARMA_DONT_USE_WRAPPER
-#define ARMA_NO_DEBUG
-#define ARMA_DONT_USE_HDF5
-#include <armadillo>
+#include <RcppArmadillo.h>
 
 
-/*
-hierarchy_func is the core model used to construct firm employment hierarchies.
-Inputs are firm employment (emp), the size of the base hierarchical level (base),
-and the vector sprod which contains the cumulative product of the spans of control
-in all levels.
-
-The algorithm first constructs a hierarchy and then tests if the resulting
-total employment of the model matches the empirical data. If not, employees are
-added/subtracted from the base. However, in the case where subtracting the error
-from the base would result in a zero or negative value, employees are subtracted sequentially
-from top levels until the correct total employment is reached.
-
-The index for the first hierarchical level with zero employees is stored in h[19]
-for further reference.
-*/
+// hierarchy_func is the core model used to construct firm employment hierarchies.
+// Inputs are firm employment (emp), the size of the base hierarchical level (base),
+// and the vector sprod which contains the cumulative product of the spans of control
+// in all levels.
+//
+// The algorithm first constructs a hierarchy and then tests if the resulting
+// total employment of the model matches the empirical data. If not, employees are
+// added/subtracted from the base. However, in the case where subtracting the error
+// from the base would result in a zero or negative value, employees are subtracted sequentially
+// from top levels until the correct total employment is reached.
+//
+// The index for the first hierarchical level with zero employees is stored in h[19]
+// for further reference.
 
 
 
-arma::uvec hierarchy_func(const int &emp, const double &base, const arma::vec &sprod){
+inline arma::uvec hierarchy_func(const int &emp, const double &base, const arma::vec &sprod){
 
     // hierarchical employment vector
     arma::uvec h = arma::zeros<arma::uvec>(20);

@@ -2,25 +2,15 @@
 #ifndef EXPONENTS_H
 #define EXPONENTS_H
 
-
-#include <vector>
+#include <RcppArmadillo.h>
 #include <math.h>
-#include <algorithm>
 
-#define ARMA_DONT_USE_WRAPPER
-//#define ARMA_NO_DEBUG
-#define ARMA_DONT_USE_HDF5
-#include <armadillo>
-
-/*
-s_func creates a vector (sprod) which is the the cumulative product of
-the span of control of each hierarchical level. Thus employment in
-any hierchical level i is simply base employment / sprod[i]
-*/
+// s_func creates a vector (sprod) which is the the cumulative product of
+// the span of control of each hierarchical level. Thus employment in
+// any hierchical level i is simply base employment / sprod[i]
 
 
-
-arma::vec s_func(double a, double b){
+inline arma::vec s_func(double a, double b){
 
 
     // initialize and fill exponent vector e_emp
@@ -48,11 +38,11 @@ arma::vec s_func(double a, double b){
 
 
 
-/*
-p_func creates a vector of exponents that is used for calculating hierarchial pay
-*/
 
-arma::uvec p_func(double a, double b){
+// p_func creates a vector of exponents that is used for calculating hierarchial pay
+
+
+inline arma::uvec p_func(double a, double b){
 
 
     //  initialize and fill exponent vector e_pay

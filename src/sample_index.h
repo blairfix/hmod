@@ -2,21 +2,17 @@
 #ifndef SAMPLE_INDEX_H
 #define SAMPLE_INDEX_H
 
+#include <RcppArmadillo.h>
 #include <random>
 
-#define ARMA_DONT_USE_WRAPPER
-#define ARMA_NO_DEBUG
-#include <armadillo>
+
+// Takes a sample of size "size" out of vector x without replacement.
+// Code is taken from the RcppArmadillo sample.h template:
+// https://github.com/RcppCore/RcppArmadillo/blob/master/inst/unitTests/cpp/sample.cpp
 
 
-/*
-Takes a sample of size "size" out of vector x without replacement.
-Code is taken from the RcppArmadillo sample.h template:
-https://github.com/RcppCore/RcppArmadillo/blob/master/inst/unitTests/cpp/sample.cpp
-*/
 
-
-arma::uvec sample_index( const arma::vec &x, int size)
+inline arma::uvec sample_index( const arma::vec &x, int size)
 {
 
     std::random_device rd;  //Will be used to obtain a seed for the random number engine

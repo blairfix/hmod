@@ -4,41 +4,30 @@
 #include <vector>
 
 
-using namespace std;
 
+// beta sim fits a lognormal distribution to
+// the distribution of beta, the power-income exponent.
+//
+// mu is constant for all firms
+//
+// sigma is a power function of firm size,
+// determined from regression on log-binned firm-size data.
+//
+//
+// inputs:
+//     employment      --- vector of firm employment
+//     beta            --- vector of fitted beta values for each firm
+//     sim_employment  --- vector of simulated values for firm employment
+//     bin_factor      --- determines how many log-spaced firm size bins are used in regression
+//
+// output =  beta values for each simulated firm in sim_employment
 
-// #define ARMA_DONT_USE_WRAPPER
-// //#define ARMA_NO_DEBUG
-// #include <armadillo>
 
 
 // [[Rcpp::depends(RcppArmadillo)]]
-//#define ARMA_NO_DEBUG
 // [[Rcpp::depends(BH)]]
 // [[Rcpp::plugins(cpp11)]]
 // [[Rcpp::export]]
-
-
-
-/*
-beta sim fits a lognormal distribution to
-the distribution of beta, the power-income exponent.
-
-mu is constant for all firms
-
-sigma is a power function of firm size,
-determined from regression on log-binned firm-size data.
-
-
-inputs:
-    employment      --- vector of firm employment
-    beta            --- vector of fitted beta values for each firm
-    sim_employment  --- vector of simulated values for firm employment
-    bin_factor      --- determines how many log-spaced firm size bins are used in regression
-
-output =  beta values for each simulated firm in sim_employment
-*/
-
 
 
 arma::vec beta_sim(    const arma::uvec &employment,

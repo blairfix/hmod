@@ -5,12 +5,12 @@ base_fit <- function(a, b, emp_vec) {
     .Call('_hmod_base_fit', PACKAGE = 'hmod', a, b, emp_vec)
 }
 
-base_pay_sim <- function(base_empirical, n_sim) {
-    .Call('_hmod_base_pay_sim', PACKAGE = 'hmod', base_empirical, n_sim)
+base_pay_sim <- function(base_pay_empirical, n_sim) {
+    .Call('_hmod_base_pay_sim', PACKAGE = 'hmod', base_pay_empirical, n_sim)
 }
 
-base_sim <- function(base_empirical, n_sim) {
-    .Call('_hmod_base_sim', PACKAGE = 'hmod', base_empirical, n_sim)
+beta_sim <- function(employment, beta, sim_employment, bin_factor) {
+    .Call('_hmod_beta_sim', PACKAGE = 'hmod', employment, beta, sim_employment, bin_factor)
 }
 
 boot_sigma <- function(x) {
@@ -21,36 +21,48 @@ boot_span <- function(h, s) {
     .Call('_hmod_boot_span', PACKAGE = 'hmod', h, s)
 }
 
-fast_mean <- function(x) {
-    .Call('_hmod_fast_mean', PACKAGE = 'hmod', x)
-}
-
-fastgini <- function(x, corr = FALSE) {
-    .Call('_hmod_fastgini', PACKAGE = 'hmod', x, corr)
-}
-
 firm_grid <- function(base_vec, stretch) {
     .Call('_hmod_firm_grid', PACKAGE = 'hmod', base_vec, stretch)
 }
 
-fit_beta <- function(a, b, base_employment_vec, total_employment_vec, ceo_ratio_vec, firm_mean_pay_vec, ceo_ratio_error_tolerance) {
-    .Call('_hmod_fit_beta', PACKAGE = 'hmod', a, b, base_employment_vec, total_employment_vec, ceo_ratio_vec, firm_mean_pay_vec, ceo_ratio_error_tolerance)
+fit_beta <- function(a, b, base_employment_vec, total_employment_vec, ceo_ratio_vec, firm_mean_pay_vec, ceo_ratio_error_tolerance, min_beta, max_beta) {
+    .Call('_hmod_fit_beta', PACKAGE = 'hmod', a, b, base_employment_vec, total_employment_vec, ceo_ratio_vec, firm_mean_pay_vec, ceo_ratio_error_tolerance, min_beta, max_beta)
 }
 
-fit_model <- function(a, b, base_emp_vec, emp_vec, c_r_vec, m_pay_vec, tol) {
-    .Call('_hmod_fit_model', PACKAGE = 'hmod', a, b, base_emp_vec, emp_vec, c_r_vec, m_pay_vec, tol)
+fit_r <- function(a, b, base_emp_vec, emp_vec, c_r_vec, m_pay_vec, tol) {
+    .Call('_hmod_fit_r', PACKAGE = 'hmod', a, b, base_emp_vec, emp_vec, c_r_vec, m_pay_vec, tol)
 }
 
-grid_plot <- function(a, b, sigma, firm_grid, base_vec, base_pay_vec, r_vec) {
-    .Call('_hmod_grid_plot', PACKAGE = 'hmod', a, b, sigma, firm_grid, base_vec, base_pay_vec, r_vec)
+gini <- function(x, corr = FALSE) {
+    .Call('_hmod_gini', PACKAGE = 'hmod', x, corr)
+}
+
+grid_plot_beta <- function(a, b, sigma, firm_grid, base_vec, base_pay_vec, r_vec) {
+    .Call('_hmod_grid_plot_beta', PACKAGE = 'hmod', a, b, sigma, firm_grid, base_vec, base_pay_vec, r_vec)
+}
+
+grid_plot_r <- function(a, b, sigma, firm_grid, base_vec, base_pay_vec, r_vec) {
+    .Call('_hmod_grid_plot_r', PACKAGE = 'hmod', a, b, sigma, firm_grid, base_vec, base_pay_vec, r_vec)
+}
+
+hierarchical_power <- function(hierarchy_vec) {
+    .Call('_hmod_hierarchical_power', PACKAGE = 'hmod', hierarchy_vec)
+}
+
+k_function <- function(pay, power, k_parameters) {
+    .Call('_hmod_k_function', PACKAGE = 'hmod', pay, power, k_parameters)
 }
 
 lorenz <- function(pay, lower, upper, n_bins) {
     .Call('_hmod_lorenz', PACKAGE = 'hmod', pay, lower, upper, n_bins)
 }
 
-model <- function(a, b, base_emp_vec, emp_vec, base_pay_vec, r_vec, sigma, firm_size = FALSE, hierarchy = FALSE, power = FALSE) {
-    .Call('_hmod_model', PACKAGE = 'hmod', a, b, base_emp_vec, emp_vec, base_pay_vec, r_vec, sigma, firm_size, hierarchy, power)
+model_beta <- function(a, b, base_emp_vec, emp_vec, base_pay_vec, beta_vec, sigma, firm_size = FALSE, hierarchy = FALSE, power = FALSE) {
+    .Call('_hmod_model_beta', PACKAGE = 'hmod', a, b, base_emp_vec, emp_vec, base_pay_vec, beta_vec, sigma, firm_size, hierarchy, power)
+}
+
+model_r <- function(a, b, base_emp_vec, emp_vec, base_pay_vec, r_vec, sigma, firm_size = FALSE, hierarchy = FALSE, power = FALSE) {
+    .Call('_hmod_model_r', PACKAGE = 'hmod', a, b, base_emp_vec, emp_vec, base_pay_vec, r_vec, sigma, firm_size, hierarchy, power)
 }
 
 project <- function(a, c, theta, e) {
@@ -61,15 +73,15 @@ rpld <- function(n, xmin, alpha, discrete_max = 10000L, xmax = 0L, ordered = FAL
     .Call('_hmod_rpld', PACKAGE = 'hmod', n, xmin, alpha, discrete_max, xmax, ordered)
 }
 
-top <- function(pay, frac) {
-    .Call('_hmod_top', PACKAGE = 'hmod', pay, frac)
+top_frac <- function(pay, frac) {
+    .Call('_hmod_top_frac', PACKAGE = 'hmod', pay, frac)
 }
 
 top_k <- function(pay, emp, k) {
     .Call('_hmod_top_k', PACKAGE = 'hmod', pay, emp, k)
 }
 
-w_mean <- function(x, w) {
-    .Call('_hmod_w_mean', PACKAGE = 'hmod', x, w)
+weighted_mean <- function(x, w) {
+    .Call('_hmod_weighted_mean', PACKAGE = 'hmod', x, w)
 }
 

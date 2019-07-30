@@ -4,16 +4,12 @@
 #include <math.h>
 #include <boost/progress.hpp>
 
-using namespace std;
 
 
-// #define ARMA_DONT_USE_WRAPPER
-// //#define ARMA_NO_DEBUG
-// #include <armadillo>
-
+// firm_grid turns firms into pyramids and places
+// them on a grid.
 
 // [[Rcpp::depends(RcppArmadillo)]]
-//#define ARMA_NO_DEBUG
 // [[Rcpp::depends(BH)]]
 // [[Rcpp::plugins(cpp11)]]
 // [[Rcpp::export]]

@@ -1,24 +1,43 @@
 #include <RcppArmadillo.h>
-#include <algorithm>
 #include <math.h>
 #include <random>
-#include <vector>
-
 #include "sample_index.h"
 
-//#define ARMA_DONT_USE_WRAPPER
-////#define ARMA_NO_DEBUG
-//#include <armadillo>
 
-using namespace std;
+// k_func calculates capitalist income for individuals
+//
+// inputs:
+//     pay             --- a vector of individual (total) income
+//     power           --- a vector of individual hierarchical power
+//     k_parameters    --- a matrix of parameters for capitalist gradient function
+//
+//         k_parameter column 0 = slope of k_frac vs. power
+//         k_parameter column 1 = intercept of k_frac vs power
+//         k_parameter column 2 = slope of k_frac COV vs power
+//         k_parameter column 3 = intercept of k_frac COV vs power
+//
+// k_parameters are determined from regressions on Execucomp CEO data
+//
+// The capitalist fraction of income (k_frac) is modeled as a
+// logarithmic function of hierarchical power.
+//
+//     hierarchical power = number of subordinates +1
+//
+// Noise is added to k_frac using a normally distributed random variate.
+// The coefficient of variation of this variate is a linear function of
+// hierarchical power, defined by k_parameters cov_slope and cov_intercept.
+//
+// Resulting k_frac values less than 0 are assigned a value of 0.
+// Resulting k_frac values greater than 1 are assigned a value of 1.
+//
+// function output =  k_income, a vector of individual capitalist income
+
+
 
 // [[Rcpp::depends(RcppArmadillo)]]
 // [[Rcpp::plugins(cpp11)]]
 // [[Rcpp::export]]
 
-
-
-// k_func calculates capitalist income for individuals
 
 
 arma::vec k_function(arma::vec pay, arma::vec power, arma::mat k_parameters)

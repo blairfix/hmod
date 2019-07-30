@@ -1,12 +1,12 @@
 #include <RcppArmadillo.h>
-using namespace std;
-using namespace Rcpp;
 
+// This function generates a Lorenz curve from the vector 'pay'.
+// Lorenz curve values are calculated for a logarithmically spaced vector from 'lower' to 'upper',
+// with 'n_bins' indicating the number of points.
 
 // [[Rcpp::depends(RcppArmadillo)]]
 // [[Rcpp::plugins(cpp11)]]
 // [[Rcpp::export]]
-
 
 
 arma::mat lorenz(   arma::vec pay,
@@ -25,10 +25,7 @@ arma::mat lorenz(   arma::vec pay,
         pay[i] = pay[i] /mean_pay;
     }
 
-
-
     arma::vec bin_vec = arma::logspace( std::log10(lower), std::log10(upper), n_bins);
-
 
     // get lorenz
     arma::mat result(2, n_bins);

@@ -2,25 +2,15 @@
 #ifndef HIERARCHICAL_POWER_H
 #define HIERARCHICAL_POWER_H
 
-#include <vector>
-#include <math.h>
-#include <algorithm>
+#include <RcppArmadillo.h>
 
-#define ARMA_DONT_USE_WRAPPER
-#define ARMA_NO_DEBUG
-#define ARMA_DONT_USE_HDF5
-#include <armadillo>
-
-
-/*
-This function calculates the average hierarchical power
-of individuals in the input hierarchy_vec.
-The input vector contains aggregate employment by hierarchical rank.
-*/
+// This function calculates the average hierarchical power
+// of individuals in the input hierarchy_vec.
+// The input vector contains aggregate employment by hierarchical rank.
 
 
 
-arma::vec hierarchical_power_function( arma::uvec hierarchy_vec )
+inline arma::vec hierarchical_power_function( arma::uvec hierarchy_vec )
 {
 
   int maximum_rank = hierarchy_vec[19];

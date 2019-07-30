@@ -7,55 +7,57 @@
 using namespace Rcpp;
 
 // base_fit
-NumericVector base_fit(double a, double b, NumericVector emp_vec);
+arma::vec base_fit(double a, double b, const arma::uvec& emp_vec);
 RcppExport SEXP _hmod_base_fit(SEXP aSEXP, SEXP bSEXP, SEXP emp_vecSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< double >::type a(aSEXP);
     Rcpp::traits::input_parameter< double >::type b(bSEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type emp_vec(emp_vecSEXP);
+    Rcpp::traits::input_parameter< const arma::uvec& >::type emp_vec(emp_vecSEXP);
     rcpp_result_gen = Rcpp::wrap(base_fit(a, b, emp_vec));
     return rcpp_result_gen;
 END_RCPP
 }
 // base_pay_sim
-NumericVector base_pay_sim(NumericVector base_empirical, int n_sim);
-RcppExport SEXP _hmod_base_pay_sim(SEXP base_empiricalSEXP, SEXP n_simSEXP) {
+arma::vec base_pay_sim(const arma::vec& base_pay_empirical, int n_sim);
+RcppExport SEXP _hmod_base_pay_sim(SEXP base_pay_empiricalSEXP, SEXP n_simSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericVector >::type base_empirical(base_empiricalSEXP);
+    Rcpp::traits::input_parameter< const arma::vec& >::type base_pay_empirical(base_pay_empiricalSEXP);
     Rcpp::traits::input_parameter< int >::type n_sim(n_simSEXP);
-    rcpp_result_gen = Rcpp::wrap(base_pay_sim(base_empirical, n_sim));
+    rcpp_result_gen = Rcpp::wrap(base_pay_sim(base_pay_empirical, n_sim));
     return rcpp_result_gen;
 END_RCPP
 }
-// base_sim
-NumericVector base_sim(NumericVector base_empirical, int n_sim);
-RcppExport SEXP _hmod_base_sim(SEXP base_empiricalSEXP, SEXP n_simSEXP) {
+// beta_sim
+arma::vec beta_sim(const arma::uvec& employment, const arma::vec& beta, const arma::uvec& sim_employment, double bin_factor);
+RcppExport SEXP _hmod_beta_sim(SEXP employmentSEXP, SEXP betaSEXP, SEXP sim_employmentSEXP, SEXP bin_factorSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericVector >::type base_empirical(base_empiricalSEXP);
-    Rcpp::traits::input_parameter< int >::type n_sim(n_simSEXP);
-    rcpp_result_gen = Rcpp::wrap(base_sim(base_empirical, n_sim));
+    Rcpp::traits::input_parameter< const arma::uvec& >::type employment(employmentSEXP);
+    Rcpp::traits::input_parameter< const arma::vec& >::type beta(betaSEXP);
+    Rcpp::traits::input_parameter< const arma::uvec& >::type sim_employment(sim_employmentSEXP);
+    Rcpp::traits::input_parameter< double >::type bin_factor(bin_factorSEXP);
+    rcpp_result_gen = Rcpp::wrap(beta_sim(employment, beta, sim_employment, bin_factor));
     return rcpp_result_gen;
 END_RCPP
 }
 // boot_sigma
-double boot_sigma(NumericVector x);
+double boot_sigma(arma::vec x);
 RcppExport SEXP _hmod_boot_sigma(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type x(xSEXP);
     rcpp_result_gen = Rcpp::wrap(boot_sigma(x));
     return rcpp_result_gen;
 END_RCPP
 }
 // boot_span
-NumericVector boot_span(arma::vec h, arma::vec s);
+arma::vec boot_span(arma::vec h, arma::vec s);
 RcppExport SEXP _hmod_boot_span(SEXP hSEXP, SEXP sSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
@@ -63,29 +65,6 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< arma::vec >::type h(hSEXP);
     Rcpp::traits::input_parameter< arma::vec >::type s(sSEXP);
     rcpp_result_gen = Rcpp::wrap(boot_span(h, s));
-    return rcpp_result_gen;
-END_RCPP
-}
-// fast_mean
-double fast_mean(NumericVector x);
-RcppExport SEXP _hmod_fast_mean(SEXP xSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(fast_mean(x));
-    return rcpp_result_gen;
-END_RCPP
-}
-// fastgini
-double fastgini(NumericVector x, bool corr);
-RcppExport SEXP _hmod_fastgini(SEXP xSEXP, SEXP corrSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
-    Rcpp::traits::input_parameter< bool >::type corr(corrSEXP);
-    rcpp_result_gen = Rcpp::wrap(fastgini(x, corr));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -102,8 +81,8 @@ BEGIN_RCPP
 END_RCPP
 }
 // fit_beta
-arma::mat fit_beta(double a, double b, const arma::vec& base_employment_vec, const arma::uvec& total_employment_vec, const arma::vec& ceo_ratio_vec, const arma::vec& firm_mean_pay_vec, double ceo_ratio_error_tolerance);
-RcppExport SEXP _hmod_fit_beta(SEXP aSEXP, SEXP bSEXP, SEXP base_employment_vecSEXP, SEXP total_employment_vecSEXP, SEXP ceo_ratio_vecSEXP, SEXP firm_mean_pay_vecSEXP, SEXP ceo_ratio_error_toleranceSEXP) {
+arma::mat fit_beta(double a, double b, const arma::vec& base_employment_vec, const arma::uvec& total_employment_vec, const arma::vec& ceo_ratio_vec, const arma::vec& firm_mean_pay_vec, double ceo_ratio_error_tolerance, double min_beta, double max_beta);
+RcppExport SEXP _hmod_fit_beta(SEXP aSEXP, SEXP bSEXP, SEXP base_employment_vecSEXP, SEXP total_employment_vecSEXP, SEXP ceo_ratio_vecSEXP, SEXP firm_mean_pay_vecSEXP, SEXP ceo_ratio_error_toleranceSEXP, SEXP min_betaSEXP, SEXP max_betaSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -114,30 +93,44 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const arma::vec& >::type ceo_ratio_vec(ceo_ratio_vecSEXP);
     Rcpp::traits::input_parameter< const arma::vec& >::type firm_mean_pay_vec(firm_mean_pay_vecSEXP);
     Rcpp::traits::input_parameter< double >::type ceo_ratio_error_tolerance(ceo_ratio_error_toleranceSEXP);
-    rcpp_result_gen = Rcpp::wrap(fit_beta(a, b, base_employment_vec, total_employment_vec, ceo_ratio_vec, firm_mean_pay_vec, ceo_ratio_error_tolerance));
+    Rcpp::traits::input_parameter< double >::type min_beta(min_betaSEXP);
+    Rcpp::traits::input_parameter< double >::type max_beta(max_betaSEXP);
+    rcpp_result_gen = Rcpp::wrap(fit_beta(a, b, base_employment_vec, total_employment_vec, ceo_ratio_vec, firm_mean_pay_vec, ceo_ratio_error_tolerance, min_beta, max_beta));
     return rcpp_result_gen;
 END_RCPP
 }
-// fit_model
-NumericMatrix fit_model(double a, double b, NumericVector base_emp_vec, IntegerVector emp_vec, NumericVector c_r_vec, NumericVector m_pay_vec, double tol);
-RcppExport SEXP _hmod_fit_model(SEXP aSEXP, SEXP bSEXP, SEXP base_emp_vecSEXP, SEXP emp_vecSEXP, SEXP c_r_vecSEXP, SEXP m_pay_vecSEXP, SEXP tolSEXP) {
+// fit_r
+arma::mat fit_r(double a, double b, const arma::vec& base_emp_vec, const arma::uvec& emp_vec, const arma::vec& c_r_vec, const arma::vec& m_pay_vec, double tol);
+RcppExport SEXP _hmod_fit_r(SEXP aSEXP, SEXP bSEXP, SEXP base_emp_vecSEXP, SEXP emp_vecSEXP, SEXP c_r_vecSEXP, SEXP m_pay_vecSEXP, SEXP tolSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< double >::type a(aSEXP);
     Rcpp::traits::input_parameter< double >::type b(bSEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type base_emp_vec(base_emp_vecSEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type emp_vec(emp_vecSEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type c_r_vec(c_r_vecSEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type m_pay_vec(m_pay_vecSEXP);
+    Rcpp::traits::input_parameter< const arma::vec& >::type base_emp_vec(base_emp_vecSEXP);
+    Rcpp::traits::input_parameter< const arma::uvec& >::type emp_vec(emp_vecSEXP);
+    Rcpp::traits::input_parameter< const arma::vec& >::type c_r_vec(c_r_vecSEXP);
+    Rcpp::traits::input_parameter< const arma::vec& >::type m_pay_vec(m_pay_vecSEXP);
     Rcpp::traits::input_parameter< double >::type tol(tolSEXP);
-    rcpp_result_gen = Rcpp::wrap(fit_model(a, b, base_emp_vec, emp_vec, c_r_vec, m_pay_vec, tol));
+    rcpp_result_gen = Rcpp::wrap(fit_r(a, b, base_emp_vec, emp_vec, c_r_vec, m_pay_vec, tol));
     return rcpp_result_gen;
 END_RCPP
 }
-// grid_plot
-arma::mat grid_plot(double a, double b, double sigma, arma::umat firm_grid, arma::vec base_vec, arma::vec base_pay_vec, arma::vec r_vec);
-RcppExport SEXP _hmod_grid_plot(SEXP aSEXP, SEXP bSEXP, SEXP sigmaSEXP, SEXP firm_gridSEXP, SEXP base_vecSEXP, SEXP base_pay_vecSEXP, SEXP r_vecSEXP) {
+// gini
+double gini(arma::vec x, bool corr);
+RcppExport SEXP _hmod_gini(SEXP xSEXP, SEXP corrSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::vec >::type x(xSEXP);
+    Rcpp::traits::input_parameter< bool >::type corr(corrSEXP);
+    rcpp_result_gen = Rcpp::wrap(gini(x, corr));
+    return rcpp_result_gen;
+END_RCPP
+}
+// grid_plot_beta
+arma::mat grid_plot_beta(double a, double b, double sigma, arma::umat firm_grid, arma::vec base_vec, arma::vec base_pay_vec, arma::vec r_vec);
+RcppExport SEXP _hmod_grid_plot_beta(SEXP aSEXP, SEXP bSEXP, SEXP sigmaSEXP, SEXP firm_gridSEXP, SEXP base_vecSEXP, SEXP base_pay_vecSEXP, SEXP r_vecSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -148,7 +141,48 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< arma::vec >::type base_vec(base_vecSEXP);
     Rcpp::traits::input_parameter< arma::vec >::type base_pay_vec(base_pay_vecSEXP);
     Rcpp::traits::input_parameter< arma::vec >::type r_vec(r_vecSEXP);
-    rcpp_result_gen = Rcpp::wrap(grid_plot(a, b, sigma, firm_grid, base_vec, base_pay_vec, r_vec));
+    rcpp_result_gen = Rcpp::wrap(grid_plot_beta(a, b, sigma, firm_grid, base_vec, base_pay_vec, r_vec));
+    return rcpp_result_gen;
+END_RCPP
+}
+// grid_plot_r
+arma::mat grid_plot_r(double a, double b, double sigma, arma::umat firm_grid, arma::vec base_vec, arma::vec base_pay_vec, arma::vec r_vec);
+RcppExport SEXP _hmod_grid_plot_r(SEXP aSEXP, SEXP bSEXP, SEXP sigmaSEXP, SEXP firm_gridSEXP, SEXP base_vecSEXP, SEXP base_pay_vecSEXP, SEXP r_vecSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< double >::type a(aSEXP);
+    Rcpp::traits::input_parameter< double >::type b(bSEXP);
+    Rcpp::traits::input_parameter< double >::type sigma(sigmaSEXP);
+    Rcpp::traits::input_parameter< arma::umat >::type firm_grid(firm_gridSEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type base_vec(base_vecSEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type base_pay_vec(base_pay_vecSEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type r_vec(r_vecSEXP);
+    rcpp_result_gen = Rcpp::wrap(grid_plot_r(a, b, sigma, firm_grid, base_vec, base_pay_vec, r_vec));
+    return rcpp_result_gen;
+END_RCPP
+}
+// hierarchical_power
+arma::vec hierarchical_power(arma::uvec hierarchy_vec);
+RcppExport SEXP _hmod_hierarchical_power(SEXP hierarchy_vecSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::uvec >::type hierarchy_vec(hierarchy_vecSEXP);
+    rcpp_result_gen = Rcpp::wrap(hierarchical_power(hierarchy_vec));
+    return rcpp_result_gen;
+END_RCPP
+}
+// k_function
+arma::vec k_function(arma::vec pay, arma::vec power, arma::mat k_parameters);
+RcppExport SEXP _hmod_k_function(SEXP paySEXP, SEXP powerSEXP, SEXP k_parametersSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::vec >::type pay(paySEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type power(powerSEXP);
+    Rcpp::traits::input_parameter< arma::mat >::type k_parameters(k_parametersSEXP);
+    rcpp_result_gen = Rcpp::wrap(k_function(pay, power, k_parameters));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -166,23 +200,43 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// model
-NumericMatrix model(double a, double b, NumericVector base_emp_vec, IntegerVector emp_vec, NumericVector base_pay_vec, NumericVector r_vec, double sigma, bool firm_size, bool hierarchy, bool power);
-RcppExport SEXP _hmod_model(SEXP aSEXP, SEXP bSEXP, SEXP base_emp_vecSEXP, SEXP emp_vecSEXP, SEXP base_pay_vecSEXP, SEXP r_vecSEXP, SEXP sigmaSEXP, SEXP firm_sizeSEXP, SEXP hierarchySEXP, SEXP powerSEXP) {
+// model_beta
+arma::mat model_beta(double a, double b, const arma::vec& base_emp_vec, const arma::uvec& emp_vec, const arma::vec& base_pay_vec, const arma::vec& beta_vec, double sigma, bool firm_size, bool hierarchy, bool power);
+RcppExport SEXP _hmod_model_beta(SEXP aSEXP, SEXP bSEXP, SEXP base_emp_vecSEXP, SEXP emp_vecSEXP, SEXP base_pay_vecSEXP, SEXP beta_vecSEXP, SEXP sigmaSEXP, SEXP firm_sizeSEXP, SEXP hierarchySEXP, SEXP powerSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< double >::type a(aSEXP);
     Rcpp::traits::input_parameter< double >::type b(bSEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type base_emp_vec(base_emp_vecSEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type emp_vec(emp_vecSEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type base_pay_vec(base_pay_vecSEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type r_vec(r_vecSEXP);
+    Rcpp::traits::input_parameter< const arma::vec& >::type base_emp_vec(base_emp_vecSEXP);
+    Rcpp::traits::input_parameter< const arma::uvec& >::type emp_vec(emp_vecSEXP);
+    Rcpp::traits::input_parameter< const arma::vec& >::type base_pay_vec(base_pay_vecSEXP);
+    Rcpp::traits::input_parameter< const arma::vec& >::type beta_vec(beta_vecSEXP);
     Rcpp::traits::input_parameter< double >::type sigma(sigmaSEXP);
     Rcpp::traits::input_parameter< bool >::type firm_size(firm_sizeSEXP);
     Rcpp::traits::input_parameter< bool >::type hierarchy(hierarchySEXP);
     Rcpp::traits::input_parameter< bool >::type power(powerSEXP);
-    rcpp_result_gen = Rcpp::wrap(model(a, b, base_emp_vec, emp_vec, base_pay_vec, r_vec, sigma, firm_size, hierarchy, power));
+    rcpp_result_gen = Rcpp::wrap(model_beta(a, b, base_emp_vec, emp_vec, base_pay_vec, beta_vec, sigma, firm_size, hierarchy, power));
+    return rcpp_result_gen;
+END_RCPP
+}
+// model_r
+arma::mat model_r(double a, double b, const arma::vec& base_emp_vec, const arma::uvec& emp_vec, const arma::vec& base_pay_vec, const arma::vec& r_vec, double sigma, bool firm_size, bool hierarchy, bool power);
+RcppExport SEXP _hmod_model_r(SEXP aSEXP, SEXP bSEXP, SEXP base_emp_vecSEXP, SEXP emp_vecSEXP, SEXP base_pay_vecSEXP, SEXP r_vecSEXP, SEXP sigmaSEXP, SEXP firm_sizeSEXP, SEXP hierarchySEXP, SEXP powerSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< double >::type a(aSEXP);
+    Rcpp::traits::input_parameter< double >::type b(bSEXP);
+    Rcpp::traits::input_parameter< const arma::vec& >::type base_emp_vec(base_emp_vecSEXP);
+    Rcpp::traits::input_parameter< const arma::uvec& >::type emp_vec(emp_vecSEXP);
+    Rcpp::traits::input_parameter< const arma::vec& >::type base_pay_vec(base_pay_vecSEXP);
+    Rcpp::traits::input_parameter< const arma::vec& >::type r_vec(r_vecSEXP);
+    Rcpp::traits::input_parameter< double >::type sigma(sigmaSEXP);
+    Rcpp::traits::input_parameter< bool >::type firm_size(firm_sizeSEXP);
+    Rcpp::traits::input_parameter< bool >::type hierarchy(hierarchySEXP);
+    Rcpp::traits::input_parameter< bool >::type power(powerSEXP);
+    rcpp_result_gen = Rcpp::wrap(model_r(a, b, base_emp_vec, emp_vec, base_pay_vec, r_vec, sigma, firm_size, hierarchy, power));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -201,7 +255,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // rpld
-IntegerVector rpld(int n, int xmin, double alpha, int discrete_max, int xmax, bool ordered);
+arma::uvec rpld(int n, int xmin, double alpha, int discrete_max, int xmax, bool ordered);
 RcppExport SEXP _hmod_rpld(SEXP nSEXP, SEXP xminSEXP, SEXP alphaSEXP, SEXP discrete_maxSEXP, SEXP xmaxSEXP, SEXP orderedSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
@@ -216,40 +270,40 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// top
-double top(NumericVector pay, double frac);
-RcppExport SEXP _hmod_top(SEXP paySEXP, SEXP fracSEXP) {
+// top_frac
+double top_frac(arma::vec pay, double frac);
+RcppExport SEXP _hmod_top_frac(SEXP paySEXP, SEXP fracSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericVector >::type pay(paySEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type pay(paySEXP);
     Rcpp::traits::input_parameter< double >::type frac(fracSEXP);
-    rcpp_result_gen = Rcpp::wrap(top(pay, frac));
+    rcpp_result_gen = Rcpp::wrap(top_frac(pay, frac));
     return rcpp_result_gen;
 END_RCPP
 }
 // top_k
-IntegerVector top_k(NumericVector pay, IntegerVector emp, int k);
+arma::rowvec top_k(const arma::vec& pay, const arma::vec& emp, int k);
 RcppExport SEXP _hmod_top_k(SEXP paySEXP, SEXP empSEXP, SEXP kSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericVector >::type pay(paySEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type emp(empSEXP);
+    Rcpp::traits::input_parameter< const arma::vec& >::type pay(paySEXP);
+    Rcpp::traits::input_parameter< const arma::vec& >::type emp(empSEXP);
     Rcpp::traits::input_parameter< int >::type k(kSEXP);
     rcpp_result_gen = Rcpp::wrap(top_k(pay, emp, k));
     return rcpp_result_gen;
 END_RCPP
 }
-// w_mean
-double w_mean(NumericVector x, NumericVector w);
-RcppExport SEXP _hmod_w_mean(SEXP xSEXP, SEXP wSEXP) {
+// weighted_mean
+double weighted_mean(NumericVector x, NumericVector w);
+RcppExport SEXP _hmod_weighted_mean(SEXP xSEXP, SEXP wSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
     Rcpp::traits::input_parameter< NumericVector >::type w(wSEXP);
-    rcpp_result_gen = Rcpp::wrap(w_mean(x, w));
+    rcpp_result_gen = Rcpp::wrap(weighted_mean(x, w));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -257,22 +311,25 @@ END_RCPP
 static const R_CallMethodDef CallEntries[] = {
     {"_hmod_base_fit", (DL_FUNC) &_hmod_base_fit, 3},
     {"_hmod_base_pay_sim", (DL_FUNC) &_hmod_base_pay_sim, 2},
-    {"_hmod_base_sim", (DL_FUNC) &_hmod_base_sim, 2},
+    {"_hmod_beta_sim", (DL_FUNC) &_hmod_beta_sim, 4},
     {"_hmod_boot_sigma", (DL_FUNC) &_hmod_boot_sigma, 1},
     {"_hmod_boot_span", (DL_FUNC) &_hmod_boot_span, 2},
-    {"_hmod_fast_mean", (DL_FUNC) &_hmod_fast_mean, 1},
-    {"_hmod_fastgini", (DL_FUNC) &_hmod_fastgini, 2},
     {"_hmod_firm_grid", (DL_FUNC) &_hmod_firm_grid, 2},
-    {"_hmod_fit_beta", (DL_FUNC) &_hmod_fit_beta, 7},
-    {"_hmod_fit_model", (DL_FUNC) &_hmod_fit_model, 7},
-    {"_hmod_grid_plot", (DL_FUNC) &_hmod_grid_plot, 7},
+    {"_hmod_fit_beta", (DL_FUNC) &_hmod_fit_beta, 9},
+    {"_hmod_fit_r", (DL_FUNC) &_hmod_fit_r, 7},
+    {"_hmod_gini", (DL_FUNC) &_hmod_gini, 2},
+    {"_hmod_grid_plot_beta", (DL_FUNC) &_hmod_grid_plot_beta, 7},
+    {"_hmod_grid_plot_r", (DL_FUNC) &_hmod_grid_plot_r, 7},
+    {"_hmod_hierarchical_power", (DL_FUNC) &_hmod_hierarchical_power, 1},
+    {"_hmod_k_function", (DL_FUNC) &_hmod_k_function, 3},
     {"_hmod_lorenz", (DL_FUNC) &_hmod_lorenz, 4},
-    {"_hmod_model", (DL_FUNC) &_hmod_model, 10},
+    {"_hmod_model_beta", (DL_FUNC) &_hmod_model_beta, 10},
+    {"_hmod_model_r", (DL_FUNC) &_hmod_model_r, 10},
     {"_hmod_project", (DL_FUNC) &_hmod_project, 4},
     {"_hmod_rpld", (DL_FUNC) &_hmod_rpld, 6},
-    {"_hmod_top", (DL_FUNC) &_hmod_top, 2},
+    {"_hmod_top_frac", (DL_FUNC) &_hmod_top_frac, 2},
     {"_hmod_top_k", (DL_FUNC) &_hmod_top_k, 3},
-    {"_hmod_w_mean", (DL_FUNC) &_hmod_w_mean, 2},
+    {"_hmod_weighted_mean", (DL_FUNC) &_hmod_weighted_mean, 2},
     {NULL, NULL, 0}
 };
 
