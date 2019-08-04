@@ -165,13 +165,3 @@ arma::uvec rpld(   int n,
     return rng;
 
 }
-
-
-
-
-
-
-
-
-
-

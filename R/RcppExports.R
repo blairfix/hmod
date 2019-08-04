@@ -9,6 +9,10 @@ base_pay_sim <- function(base_pay_empirical, n_sim) {
     .Call('_hmod_base_pay_sim', PACKAGE = 'hmod', base_pay_empirical, n_sim)
 }
 
+base_pay_sim_beta <- function(base_pay_empirical, beta_empirical, beta_simulated) {
+    .Call('_hmod_base_pay_sim_beta', PACKAGE = 'hmod', base_pay_empirical, beta_empirical, beta_simulated)
+}
+
 beta_sim <- function(employment, beta, sim_employment, bin_factor) {
     .Call('_hmod_beta_sim', PACKAGE = 'hmod', employment, beta, sim_employment, bin_factor)
 }
@@ -21,8 +25,16 @@ boot_span <- function(h, s) {
     .Call('_hmod_boot_span', PACKAGE = 'hmod', h, s)
 }
 
+ceo_pay_ratio <- function(a, b, base_employment_vec, total_employment_vec, base_pay_vec, beta_vec) {
+    .Call('_hmod_ceo_pay_ratio', PACKAGE = 'hmod', a, b, base_employment_vec, total_employment_vec, base_pay_vec, beta_vec)
+}
+
 firm_grid <- function(base_vec, stretch) {
     .Call('_hmod_firm_grid', PACKAGE = 'hmod', base_vec, stretch)
+}
+
+firm_mean_pay <- function(a, b, base_employment_vec, total_employment_vec, base_pay_vec, beta_vec) {
+    .Call('_hmod_firm_mean_pay', PACKAGE = 'hmod', a, b, base_employment_vec, total_employment_vec, base_pay_vec, beta_vec)
 }
 
 fit_beta <- function(a, b, base_employment_vec, total_employment_vec, ceo_ratio_vec, firm_mean_pay_vec, ceo_ratio_error_tolerance, min_beta, max_beta) {
@@ -37,8 +49,8 @@ gini <- function(x, corr = FALSE) {
     .Call('_hmod_gini', PACKAGE = 'hmod', x, corr)
 }
 
-grid_plot_beta <- function(a, b, sigma, firm_grid, base_vec, base_pay_vec, r_vec) {
-    .Call('_hmod_grid_plot_beta', PACKAGE = 'hmod', a, b, sigma, firm_grid, base_vec, base_pay_vec, r_vec)
+grid_plot_beta <- function(a, b, sigma, firm_grid, emp_vec, base_vec, base_pay_vec, beta_vec) {
+    .Call('_hmod_grid_plot_beta', PACKAGE = 'hmod', a, b, sigma, firm_grid, emp_vec, base_vec, base_pay_vec, beta_vec)
 }
 
 grid_plot_r <- function(a, b, sigma, firm_grid, base_vec, base_pay_vec, r_vec) {
@@ -81,7 +93,7 @@ top_k <- function(pay, emp, k) {
     .Call('_hmod_top_k', PACKAGE = 'hmod', pay, emp, k)
 }
 
-weighted_mean <- function(x, w) {
-    .Call('_hmod_weighted_mean', PACKAGE = 'hmod', x, w)
+weighted_mean <- function(x, weights) {
+    .Call('_hmod_weighted_mean', PACKAGE = 'hmod', x, weights)
 }
 

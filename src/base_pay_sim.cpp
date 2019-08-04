@@ -1,7 +1,7 @@
 #include <RcppArmadillo.h>
 #include <boost/math/special_functions/digamma.hpp>
 #include <boost/math/special_functions/polygamma.hpp>
-
+#include <random>
 
 
 

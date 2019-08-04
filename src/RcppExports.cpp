@@ -31,6 +31,19 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// base_pay_sim_beta
+arma::vec base_pay_sim_beta(const arma::vec& base_pay_empirical, const arma::vec& beta_empirical, const arma::vec& beta_simulated);
+RcppExport SEXP _hmod_base_pay_sim_beta(SEXP base_pay_empiricalSEXP, SEXP beta_empiricalSEXP, SEXP beta_simulatedSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::vec& >::type base_pay_empirical(base_pay_empiricalSEXP);
+    Rcpp::traits::input_parameter< const arma::vec& >::type beta_empirical(beta_empiricalSEXP);
+    Rcpp::traits::input_parameter< const arma::vec& >::type beta_simulated(beta_simulatedSEXP);
+    rcpp_result_gen = Rcpp::wrap(base_pay_sim_beta(base_pay_empirical, beta_empirical, beta_simulated));
+    return rcpp_result_gen;
+END_RCPP
+}
 // beta_sim
 arma::vec beta_sim(const arma::uvec& employment, const arma::vec& beta, const arma::uvec& sim_employment, double bin_factor);
 RcppExport SEXP _hmod_beta_sim(SEXP employmentSEXP, SEXP betaSEXP, SEXP sim_employmentSEXP, SEXP bin_factorSEXP) {
@@ -68,6 +81,22 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// ceo_pay_ratio
+arma::vec ceo_pay_ratio(double a, double b, const arma::vec& base_employment_vec, const arma::uvec& total_employment_vec, const arma::vec& base_pay_vec, const arma::vec& beta_vec);
+RcppExport SEXP _hmod_ceo_pay_ratio(SEXP aSEXP, SEXP bSEXP, SEXP base_employment_vecSEXP, SEXP total_employment_vecSEXP, SEXP base_pay_vecSEXP, SEXP beta_vecSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< double >::type a(aSEXP);
+    Rcpp::traits::input_parameter< double >::type b(bSEXP);
+    Rcpp::traits::input_parameter< const arma::vec& >::type base_employment_vec(base_employment_vecSEXP);
+    Rcpp::traits::input_parameter< const arma::uvec& >::type total_employment_vec(total_employment_vecSEXP);
+    Rcpp::traits::input_parameter< const arma::vec& >::type base_pay_vec(base_pay_vecSEXP);
+    Rcpp::traits::input_parameter< const arma::vec& >::type beta_vec(beta_vecSEXP);
+    rcpp_result_gen = Rcpp::wrap(ceo_pay_ratio(a, b, base_employment_vec, total_employment_vec, base_pay_vec, beta_vec));
+    return rcpp_result_gen;
+END_RCPP
+}
 // firm_grid
 arma::imat firm_grid(arma::vec base_vec, int stretch);
 RcppExport SEXP _hmod_firm_grid(SEXP base_vecSEXP, SEXP stretchSEXP) {
@@ -77,6 +106,22 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< arma::vec >::type base_vec(base_vecSEXP);
     Rcpp::traits::input_parameter< int >::type stretch(stretchSEXP);
     rcpp_result_gen = Rcpp::wrap(firm_grid(base_vec, stretch));
+    return rcpp_result_gen;
+END_RCPP
+}
+// firm_mean_pay
+arma::vec firm_mean_pay(double a, double b, const arma::vec& base_employment_vec, const arma::uvec& total_employment_vec, const arma::vec& base_pay_vec, const arma::vec& beta_vec);
+RcppExport SEXP _hmod_firm_mean_pay(SEXP aSEXP, SEXP bSEXP, SEXP base_employment_vecSEXP, SEXP total_employment_vecSEXP, SEXP base_pay_vecSEXP, SEXP beta_vecSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< double >::type a(aSEXP);
+    Rcpp::traits::input_parameter< double >::type b(bSEXP);
+    Rcpp::traits::input_parameter< const arma::vec& >::type base_employment_vec(base_employment_vecSEXP);
+    Rcpp::traits::input_parameter< const arma::uvec& >::type total_employment_vec(total_employment_vecSEXP);
+    Rcpp::traits::input_parameter< const arma::vec& >::type base_pay_vec(base_pay_vecSEXP);
+    Rcpp::traits::input_parameter< const arma::vec& >::type beta_vec(beta_vecSEXP);
+    rcpp_result_gen = Rcpp::wrap(firm_mean_pay(a, b, base_employment_vec, total_employment_vec, base_pay_vec, beta_vec));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -129,8 +174,8 @@ BEGIN_RCPP
 END_RCPP
 }
 // grid_plot_beta
-arma::mat grid_plot_beta(double a, double b, double sigma, arma::umat firm_grid, arma::vec base_vec, arma::vec base_pay_vec, arma::vec r_vec);
-RcppExport SEXP _hmod_grid_plot_beta(SEXP aSEXP, SEXP bSEXP, SEXP sigmaSEXP, SEXP firm_gridSEXP, SEXP base_vecSEXP, SEXP base_pay_vecSEXP, SEXP r_vecSEXP) {
+arma::mat grid_plot_beta(double a, double b, double sigma, arma::umat firm_grid, arma::vec emp_vec, arma::vec base_vec, arma::vec base_pay_vec, arma::vec beta_vec);
+RcppExport SEXP _hmod_grid_plot_beta(SEXP aSEXP, SEXP bSEXP, SEXP sigmaSEXP, SEXP firm_gridSEXP, SEXP emp_vecSEXP, SEXP base_vecSEXP, SEXP base_pay_vecSEXP, SEXP beta_vecSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -138,10 +183,11 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< double >::type b(bSEXP);
     Rcpp::traits::input_parameter< double >::type sigma(sigmaSEXP);
     Rcpp::traits::input_parameter< arma::umat >::type firm_grid(firm_gridSEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type emp_vec(emp_vecSEXP);
     Rcpp::traits::input_parameter< arma::vec >::type base_vec(base_vecSEXP);
     Rcpp::traits::input_parameter< arma::vec >::type base_pay_vec(base_pay_vecSEXP);
-    Rcpp::traits::input_parameter< arma::vec >::type r_vec(r_vecSEXP);
-    rcpp_result_gen = Rcpp::wrap(grid_plot_beta(a, b, sigma, firm_grid, base_vec, base_pay_vec, r_vec));
+    Rcpp::traits::input_parameter< arma::vec >::type beta_vec(beta_vecSEXP);
+    rcpp_result_gen = Rcpp::wrap(grid_plot_beta(a, b, sigma, firm_grid, emp_vec, base_vec, base_pay_vec, beta_vec));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -296,14 +342,14 @@ BEGIN_RCPP
 END_RCPP
 }
 // weighted_mean
-double weighted_mean(NumericVector x, NumericVector w);
-RcppExport SEXP _hmod_weighted_mean(SEXP xSEXP, SEXP wSEXP) {
+double weighted_mean(arma::vec x, arma::vec weights);
+RcppExport SEXP _hmod_weighted_mean(SEXP xSEXP, SEXP weightsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type w(wSEXP);
-    rcpp_result_gen = Rcpp::wrap(weighted_mean(x, w));
+    Rcpp::traits::input_parameter< arma::vec >::type x(xSEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type weights(weightsSEXP);
+    rcpp_result_gen = Rcpp::wrap(weighted_mean(x, weights));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -311,14 +357,17 @@ END_RCPP
 static const R_CallMethodDef CallEntries[] = {
     {"_hmod_base_fit", (DL_FUNC) &_hmod_base_fit, 3},
     {"_hmod_base_pay_sim", (DL_FUNC) &_hmod_base_pay_sim, 2},
+    {"_hmod_base_pay_sim_beta", (DL_FUNC) &_hmod_base_pay_sim_beta, 3},
     {"_hmod_beta_sim", (DL_FUNC) &_hmod_beta_sim, 4},
     {"_hmod_boot_sigma", (DL_FUNC) &_hmod_boot_sigma, 1},
     {"_hmod_boot_span", (DL_FUNC) &_hmod_boot_span, 2},
+    {"_hmod_ceo_pay_ratio", (DL_FUNC) &_hmod_ceo_pay_ratio, 6},
     {"_hmod_firm_grid", (DL_FUNC) &_hmod_firm_grid, 2},
+    {"_hmod_firm_mean_pay", (DL_FUNC) &_hmod_firm_mean_pay, 6},
     {"_hmod_fit_beta", (DL_FUNC) &_hmod_fit_beta, 9},
     {"_hmod_fit_r", (DL_FUNC) &_hmod_fit_r, 7},
     {"_hmod_gini", (DL_FUNC) &_hmod_gini, 2},
-    {"_hmod_grid_plot_beta", (DL_FUNC) &_hmod_grid_plot_beta, 7},
+    {"_hmod_grid_plot_beta", (DL_FUNC) &_hmod_grid_plot_beta, 8},
     {"_hmod_grid_plot_r", (DL_FUNC) &_hmod_grid_plot_r, 7},
     {"_hmod_hierarchical_power", (DL_FUNC) &_hmod_hierarchical_power, 1},
     {"_hmod_k_function", (DL_FUNC) &_hmod_k_function, 3},
