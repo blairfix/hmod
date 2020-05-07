@@ -187,6 +187,17 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// grc
+double grc(arma::vec n_subordinates);
+RcppExport SEXP _hmod_grc(SEXP n_subordinatesSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::vec >::type n_subordinates(n_subordinatesSEXP);
+    rcpp_result_gen = Rcpp::wrap(grc(n_subordinates));
+    return rcpp_result_gen;
+END_RCPP
+}
 // grid_plot_beta
 arma::mat grid_plot_beta(double a, double b, double sigma, arma::umat firm_grid, arma::vec emp_vec, arma::vec base_vec, arma::vec base_pay_vec, arma::vec beta_vec);
 RcppExport SEXP _hmod_grid_plot_beta(SEXP aSEXP, SEXP bSEXP, SEXP sigmaSEXP, SEXP firm_gridSEXP, SEXP emp_vecSEXP, SEXP base_vecSEXP, SEXP base_pay_vecSEXP, SEXP beta_vecSEXP) {
@@ -395,6 +406,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_hmod_fit_beta", (DL_FUNC) &_hmod_fit_beta, 9},
     {"_hmod_fit_r", (DL_FUNC) &_hmod_fit_r, 7},
     {"_hmod_gini", (DL_FUNC) &_hmod_gini, 2},
+    {"_hmod_grc", (DL_FUNC) &_hmod_grc, 1},
     {"_hmod_grid_plot_beta", (DL_FUNC) &_hmod_grid_plot_beta, 8},
     {"_hmod_grid_plot_r", (DL_FUNC) &_hmod_grid_plot_r, 7},
     {"_hmod_hierarchical_power", (DL_FUNC) &_hmod_hierarchical_power, 1},

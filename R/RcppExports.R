@@ -53,6 +53,10 @@ gini <- function(x, corr = FALSE) {
     .Call('_hmod_gini', PACKAGE = 'hmod', x, corr)
 }
 
+grc <- function(n_subordinates) {
+    .Call('_hmod_grc', PACKAGE = 'hmod', n_subordinates)
+}
+
 grid_plot_beta <- function(a, b, sigma, firm_grid, emp_vec, base_vec, base_pay_vec, beta_vec) {
     .Call('_hmod_grid_plot_beta', PACKAGE = 'hmod', a, b, sigma, firm_grid, emp_vec, base_vec, base_pay_vec, beta_vec)
 }
