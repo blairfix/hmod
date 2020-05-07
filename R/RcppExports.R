@@ -13,8 +13,12 @@ base_pay_sim_beta <- function(base_pay_empirical, beta_empirical, beta_simulated
     .Call('_hmod_base_pay_sim_beta', PACKAGE = 'hmod', base_pay_empirical, beta_empirical, beta_simulated)
 }
 
-beta_sim <- function(employment, beta, sim_employment, bin_factor) {
-    .Call('_hmod_beta_sim', PACKAGE = 'hmod', employment, beta, sim_employment, bin_factor)
+beta_sim_linear <- function(employment, beta, sim_employment, bin_factor) {
+    .Call('_hmod_beta_sim_linear', PACKAGE = 'hmod', employment, beta, sim_employment, bin_factor)
+}
+
+beta_sim_log <- function(employment, beta, sim_employment, bin_factor) {
+    .Call('_hmod_beta_sim_log', PACKAGE = 'hmod', employment, beta, sim_employment, bin_factor)
 }
 
 boot_sigma <- function(x) {
@@ -83,6 +87,10 @@ project <- function(a, c, theta, e) {
 
 rpld <- function(n, xmin, alpha, discrete_max = 10000L, xmax = 0L, ordered = FALSE) {
     .Call('_hmod_rpld', PACKAGE = 'hmod', n, xmin, alpha, discrete_max, xmax, ordered)
+}
+
+string_replace <- function(original, replacement, input_string) {
+    .Call('_hmod_string_replace', PACKAGE = 'hmod', original, replacement, input_string)
 }
 
 top_frac <- function(pay, frac) {

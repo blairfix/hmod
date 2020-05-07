@@ -30,11 +30,12 @@
 // [[Rcpp::export]]
 
 
-arma::vec beta_sim(    const arma::uvec &employment,
-                       const arma::vec &beta,
-                       const arma::uvec &sim_employment,
-                       double bin_factor  // greater = more employment bins
+arma::vec beta_sim_linear(  const arma::uvec &employment,
+                            const arma::vec &beta,
+                            const arma::uvec &sim_employment,
+                            double bin_factor  // greater = more employment bins
                 )
+
 {
 
     arma::vec emp = arma::conv_to<arma::vec>::from(employment); // convert employment to arma::vec
@@ -63,19 +64,11 @@ arma::vec beta_sim(    const arma::uvec &employment,
 
         }
 
-
-        // get rid of 0 values for sigma_beta
-        arma::uvec non_zero_index = find(sigma_beta > 0);
-        n_group = non_zero_index.size();
-
-        sigma_beta = sigma_beta.elem( non_zero_index );
-        group_unique = group_unique.elem( non_zero_index );
-
-        // regression on log sigma vs group (log of employment)
+        // regression on sigma vs group (log of employment)
         arma::mat X(n_group, 2); // response matrix
         X.ones();
         X.col(1) = group_unique;
-        arma::vec sigma_coef = arma::solve(X, arma::log(sigma_beta) );
+        arma::vec sigma_coef = arma::solve(X, sigma_beta );
 
 
     ///////////////////////////////////////////////////////////////////////////////////
@@ -92,7 +85,7 @@ arma::vec beta_sim(    const arma::uvec &employment,
 
     for(int i = 0; i < n_sim_firms; ++i){
 
-        double sigma_firm = std::exp( sigma_coef[0] + sigma_coef[1]*std::log( sim_employment[i] ) );
+        double sigma_firm =  sigma_coef[0] + sigma_coef[1]*std::log( sim_employment[i] ) ;
 
         beta_output[i] = std::exp(  sigma_firm*d(gen) + mu_beta);
 

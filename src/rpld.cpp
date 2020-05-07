@@ -28,7 +28,7 @@ using namespace std;
 // Sys.setenv("PKG_CXXFLAGS"="-std=c++11 -O3 -march=native")
 
 
-
+// [[Rcpp::depends(RcppArmadillo)]]
 // [[Rcpp::depends(BH)]]
 // [[Rcpp::plugins(cpp11)]]
 // [[Rcpp::export]]

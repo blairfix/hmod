@@ -44,9 +44,9 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// beta_sim
-arma::vec beta_sim(const arma::uvec& employment, const arma::vec& beta, const arma::uvec& sim_employment, double bin_factor);
-RcppExport SEXP _hmod_beta_sim(SEXP employmentSEXP, SEXP betaSEXP, SEXP sim_employmentSEXP, SEXP bin_factorSEXP) {
+// beta_sim_linear
+arma::vec beta_sim_linear(const arma::uvec& employment, const arma::vec& beta, const arma::uvec& sim_employment, double bin_factor);
+RcppExport SEXP _hmod_beta_sim_linear(SEXP employmentSEXP, SEXP betaSEXP, SEXP sim_employmentSEXP, SEXP bin_factorSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -54,7 +54,21 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const arma::vec& >::type beta(betaSEXP);
     Rcpp::traits::input_parameter< const arma::uvec& >::type sim_employment(sim_employmentSEXP);
     Rcpp::traits::input_parameter< double >::type bin_factor(bin_factorSEXP);
-    rcpp_result_gen = Rcpp::wrap(beta_sim(employment, beta, sim_employment, bin_factor));
+    rcpp_result_gen = Rcpp::wrap(beta_sim_linear(employment, beta, sim_employment, bin_factor));
+    return rcpp_result_gen;
+END_RCPP
+}
+// beta_sim_log
+arma::vec beta_sim_log(const arma::uvec& employment, const arma::vec& beta, const arma::uvec& sim_employment, double bin_factor);
+RcppExport SEXP _hmod_beta_sim_log(SEXP employmentSEXP, SEXP betaSEXP, SEXP sim_employmentSEXP, SEXP bin_factorSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::uvec& >::type employment(employmentSEXP);
+    Rcpp::traits::input_parameter< const arma::vec& >::type beta(betaSEXP);
+    Rcpp::traits::input_parameter< const arma::uvec& >::type sim_employment(sim_employmentSEXP);
+    Rcpp::traits::input_parameter< double >::type bin_factor(bin_factorSEXP);
+    rcpp_result_gen = Rcpp::wrap(beta_sim_log(employment, beta, sim_employment, bin_factor));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -316,6 +330,19 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// string_replace
+std::vector<std::string> string_replace(std::vector<std::string> original, std::vector<std::string> replacement, std::vector<std::string> input_string);
+RcppExport SEXP _hmod_string_replace(SEXP originalSEXP, SEXP replacementSEXP, SEXP input_stringSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< std::vector<std::string> >::type original(originalSEXP);
+    Rcpp::traits::input_parameter< std::vector<std::string> >::type replacement(replacementSEXP);
+    Rcpp::traits::input_parameter< std::vector<std::string> >::type input_string(input_stringSEXP);
+    rcpp_result_gen = Rcpp::wrap(string_replace(original, replacement, input_string));
+    return rcpp_result_gen;
+END_RCPP
+}
 // top_frac
 double top_frac(arma::vec pay, double frac);
 RcppExport SEXP _hmod_top_frac(SEXP paySEXP, SEXP fracSEXP) {
@@ -358,7 +385,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_hmod_base_fit", (DL_FUNC) &_hmod_base_fit, 3},
     {"_hmod_base_pay_sim", (DL_FUNC) &_hmod_base_pay_sim, 2},
     {"_hmod_base_pay_sim_beta", (DL_FUNC) &_hmod_base_pay_sim_beta, 3},
-    {"_hmod_beta_sim", (DL_FUNC) &_hmod_beta_sim, 4},
+    {"_hmod_beta_sim_linear", (DL_FUNC) &_hmod_beta_sim_linear, 4},
+    {"_hmod_beta_sim_log", (DL_FUNC) &_hmod_beta_sim_log, 4},
     {"_hmod_boot_sigma", (DL_FUNC) &_hmod_boot_sigma, 1},
     {"_hmod_boot_span", (DL_FUNC) &_hmod_boot_span, 2},
     {"_hmod_ceo_pay_ratio", (DL_FUNC) &_hmod_ceo_pay_ratio, 6},
@@ -376,6 +404,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_hmod_model_r", (DL_FUNC) &_hmod_model_r, 10},
     {"_hmod_project", (DL_FUNC) &_hmod_project, 4},
     {"_hmod_rpld", (DL_FUNC) &_hmod_rpld, 6},
+    {"_hmod_string_replace", (DL_FUNC) &_hmod_string_replace, 3},
     {"_hmod_top_frac", (DL_FUNC) &_hmod_top_frac, 2},
     {"_hmod_top_k", (DL_FUNC) &_hmod_top_k, 3},
     {"_hmod_weighted_mean", (DL_FUNC) &_hmod_weighted_mean, 2},

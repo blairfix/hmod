@@ -54,8 +54,8 @@ arma::mat   fit_beta  ( double a,
     int   n_firm = base_employment_vec.size(); // number of firms
     arma::mat  output(n_firm, 3);       // output matrix
 
-
     arma::vec sprod = s_func(a, b);  // get span product
+
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // loop over firms
@@ -63,7 +63,7 @@ arma::mat   fit_beta  ( double a,
     for(int firm_index = 0; firm_index < n_firm; firm_index++){
 
         double base = base_employment_vec[firm_index];
-        double c_r = ceo_ratio_vec[firm_index];
+        double ceo_ratio_firm = ceo_ratio_vec[firm_index];
         int emp = total_employment_vec[firm_index];
 
         // get hierarchical power of each rank
@@ -85,7 +85,7 @@ arma::mat   fit_beta  ( double a,
 
             arma::vec error(3);     // contain error corresponding to each value in beta vector
             double m_pay_model;     // estimate for firm mean pay
-            int best_error = 100;   // set initial model error to high number to enter while loop
+            double best_error = 100;   // set initial model error to high number to enter while loop
             int while_counter = 1;  // number of times through the while loop
 
 
@@ -121,17 +121,17 @@ arma::mat   fit_beta  ( double a,
 
 
                 // calculate firm mean pay (weighted mean of mean_pay by hierarchy vectors)
-                double total = 0;
-                double total_w = 0;
+                double total_pay = 0;
+                double total_weight = 0;
 
                 for(int i = 0; i < maximum; ++i){
-                  total += mean_pay_vec[i] * hierarchy_vec[i];
-                  total_w += hierarchy_vec[i];
+                  total_pay += mean_pay_vec[i] * hierarchy_vec[i];
+                  total_weight += hierarchy_vec[i];
                 }
 
-                m_pay_model =  total / total_w;                             // mean pay of model
-                double  ceo_ratio = mean_pay_vec[maximum-1]/m_pay_model;    // get model ceo pay ratio
-                error[beta_index] =  c_r - ceo_ratio;                       // model error
+                m_pay_model =  total_pay / total_weight;                    	  // mean pay of model
+                double  ceo_ratio_model = mean_pay_vec[maximum-1] / m_pay_model;  // get model ceo pay ratio
+                error[beta_index] =  ceo_ratio_firm - ceo_ratio_model;            // model error
 
             }
 
@@ -170,5 +170,4 @@ arma::mat   fit_beta  ( double a,
 
     return output;
 }
-
 
