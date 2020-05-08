@@ -31,7 +31,7 @@ Then  open the file `hmod.Rproj` in Rstudio. In the R terminal, enter this comma
 Next, the top right panel, click the "Build" tab. Clock "Install and Restart". If everything works, you'll then be able to load `hmod` like any other library:
 
 ```R
-library(`hmod`)
+library(hmod)
 ```
 
 If you have problem installing, or if you find a bug, please let me know.
