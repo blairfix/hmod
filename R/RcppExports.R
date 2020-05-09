@@ -77,6 +77,10 @@ lorenz <- function(pay, lower, upper, n_bins) {
     .Call('_hmod_lorenz', PACKAGE = 'hmod', pay, lower, upper, n_bins)
 }
 
+manager_frac <- function(firm_vec, span, manage_rank_thresh) {
+    .Call('_hmod_manager_frac', PACKAGE = 'hmod', firm_vec, span, manage_rank_thresh)
+}
+
 model_beta <- function(a, b, base_emp_vec, emp_vec, base_pay_vec, beta_vec, sigma, firm_size = FALSE, hierarchy = FALSE, power = FALSE) {
     .Call('_hmod_model_beta', PACKAGE = 'hmod', a, b, base_emp_vec, emp_vec, base_pay_vec, beta_vec, sigma, firm_size, hierarchy, power)
 }

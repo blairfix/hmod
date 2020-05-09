@@ -271,6 +271,19 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// manager_frac
+double manager_frac(const arma::vec& firm_vec, double span, int manage_rank_thresh);
+RcppExport SEXP _hmod_manager_frac(SEXP firm_vecSEXP, SEXP spanSEXP, SEXP manage_rank_threshSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::vec& >::type firm_vec(firm_vecSEXP);
+    Rcpp::traits::input_parameter< double >::type span(spanSEXP);
+    Rcpp::traits::input_parameter< int >::type manage_rank_thresh(manage_rank_threshSEXP);
+    rcpp_result_gen = Rcpp::wrap(manager_frac(firm_vec, span, manage_rank_thresh));
+    return rcpp_result_gen;
+END_RCPP
+}
 // model_beta
 arma::mat model_beta(double a, double b, const arma::vec& base_emp_vec, const arma::uvec& emp_vec, const arma::vec& base_pay_vec, const arma::vec& beta_vec, double sigma, bool firm_size, bool hierarchy, bool power);
 RcppExport SEXP _hmod_model_beta(SEXP aSEXP, SEXP bSEXP, SEXP base_emp_vecSEXP, SEXP emp_vecSEXP, SEXP base_pay_vecSEXP, SEXP beta_vecSEXP, SEXP sigmaSEXP, SEXP firm_sizeSEXP, SEXP hierarchySEXP, SEXP powerSEXP) {
@@ -326,7 +339,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // rpld
-arma::uvec rpld(int n, int xmin, double alpha, int discrete_max, int xmax, bool ordered);
+Rcpp::NumericVector rpld(int n, int xmin, double alpha, int discrete_max, int xmax, bool ordered);
 RcppExport SEXP _hmod_rpld(SEXP nSEXP, SEXP xminSEXP, SEXP alphaSEXP, SEXP discrete_maxSEXP, SEXP xmaxSEXP, SEXP orderedSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
@@ -412,6 +425,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_hmod_hierarchical_power", (DL_FUNC) &_hmod_hierarchical_power, 1},
     {"_hmod_k_function", (DL_FUNC) &_hmod_k_function, 3},
     {"_hmod_lorenz", (DL_FUNC) &_hmod_lorenz, 4},
+    {"_hmod_manager_frac", (DL_FUNC) &_hmod_manager_frac, 3},
     {"_hmod_model_beta", (DL_FUNC) &_hmod_model_beta, 10},
     {"_hmod_model_r", (DL_FUNC) &_hmod_model_r, 10},
     {"_hmod_project", (DL_FUNC) &_hmod_project, 4},

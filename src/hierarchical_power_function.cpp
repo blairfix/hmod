@@ -6,14 +6,13 @@
 
 
 // [[Rcpp::depends(RcppArmadillo)]]
-// [[Rcpp::plugins(cpp11)]]
 // [[Rcpp::export]]
 
 
 arma::vec hierarchical_power( arma::uvec hierarchy_vec )
 {
 
-    int maximum_rank = hierarchy_vec[19];
+    int maximum_rank = hierarchy_vec.size();
     double n_subordinate = 0;
 
     arma::vec mean_hierarchical_power(maximum_rank);
@@ -32,6 +31,5 @@ arma::vec hierarchical_power( arma::uvec hierarchy_vec )
 
 
 }
-
 
 
