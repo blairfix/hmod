@@ -5,7 +5,7 @@
 
 #include "exponents.h"
 #include "hierarchy.h"
-#include "hierarchical_power.h"
+#include "hierarchical_power_v1.h"
 
 
 // The model function creates a simulated income distribution.

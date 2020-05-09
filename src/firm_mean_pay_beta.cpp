@@ -2,7 +2,7 @@
 #include <math.h>
 #include "exponents.h"
 #include "hierarchy.h"
-#include "hierarchical_power.h"
+#include "hierarchical_power_v1.h"
 
 // a function to find the average pay in a modeled firm
 

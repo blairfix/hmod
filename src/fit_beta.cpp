@@ -2,7 +2,7 @@
 #include <math.h>
 #include "exponents.h"
 #include "hierarchy.h"
-#include "hierarchical_power.h"
+#include "hierarchical_power_v1.h"
 
 
 // This function fits a power-income exponent beta to empirical firms.

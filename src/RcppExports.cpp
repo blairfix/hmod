@@ -244,6 +244,18 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// hp_mod
+arma::vec hp_mod(const arma::vec& firm_vec, double span);
+RcppExport SEXP _hmod_hp_mod(SEXP firm_vecSEXP, SEXP spanSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::vec& >::type firm_vec(firm_vecSEXP);
+    Rcpp::traits::input_parameter< double >::type span(spanSEXP);
+    rcpp_result_gen = Rcpp::wrap(hp_mod(firm_vec, span));
+    return rcpp_result_gen;
+END_RCPP
+}
 // k_function
 arma::vec k_function(arma::vec pay, arma::vec power, arma::mat k_parameters);
 RcppExport SEXP _hmod_k_function(SEXP paySEXP, SEXP powerSEXP, SEXP k_parametersSEXP) {
@@ -423,6 +435,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_hmod_grid_plot_beta", (DL_FUNC) &_hmod_grid_plot_beta, 8},
     {"_hmod_grid_plot_r", (DL_FUNC) &_hmod_grid_plot_r, 7},
     {"_hmod_hierarchical_power", (DL_FUNC) &_hmod_hierarchical_power, 1},
+    {"_hmod_hp_mod", (DL_FUNC) &_hmod_hp_mod, 2},
     {"_hmod_k_function", (DL_FUNC) &_hmod_k_function, 3},
     {"_hmod_lorenz", (DL_FUNC) &_hmod_lorenz, 4},
     {"_hmod_manager_frac", (DL_FUNC) &_hmod_manager_frac, 3},

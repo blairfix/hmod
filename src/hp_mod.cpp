@@ -1,5 +1,5 @@
 #include <RcppArmadillo.h>
-#include "hierarchical_power.h"
+#include "hierarchical_power_v2.h"
 #include "hierarchy_fix_span.h"
 #include <math.h>
 

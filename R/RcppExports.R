@@ -69,6 +69,10 @@ hierarchical_power <- function(hierarchy_vec) {
     .Call('_hmod_hierarchical_power', PACKAGE = 'hmod', hierarchy_vec)
 }
 
+hp_mod <- function(firm_vec, span) {
+    .Call('_hmod_hp_mod', PACKAGE = 'hmod', firm_vec, span)
+}
+
 k_function <- function(pay, power, k_parameters) {
     .Call('_hmod_k_function', PACKAGE = 'hmod', pay, power, k_parameters)
 }

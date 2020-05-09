@@ -1,13 +1,12 @@
-//File: hierarchical_power.h
-#ifndef HIERARCHICAL_POWER_H
-#define HIERARCHICAL_POWER_H
+//File: hierarchical_power_v1.h
+#ifndef HIERARCHICAL_POWER_V1_H
+#define HIERARCHICAL_POWER_V1_H
 
 #include <RcppArmadillo.h>
 
 // This function calculates the average hierarchical power
 // of individuals in the input hierarchy_vec.
 // The input vector contains aggregate employment by hierarchical rank.
-
 
 
 inline arma::vec hierarchical_power_function( arma::uvec hierarchy_vec )
@@ -17,7 +16,6 @@ inline arma::vec hierarchical_power_function( arma::uvec hierarchy_vec )
   double n_subordinate = 0;
 
   arma::vec mean_hierarchical_power(maximum_rank);
-
 
   //loop over levels in firm
   for (int i = 0; i < maximum_rank; ++i){
@@ -30,8 +28,6 @@ inline arma::vec hierarchical_power_function( arma::uvec hierarchy_vec )
 
   return(mean_hierarchical_power);
 
-
 }
-
 
 #endif

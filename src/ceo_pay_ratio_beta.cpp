@@ -2,10 +2,9 @@
 #include <math.h>
 #include "exponents.h"
 #include "hierarchy.h"
-#include "hierarchical_power.h"
+#include "hierarchical_power_v1.h"
 
 // a function to find the ceo pay ratio of modeled firm
-
 
 // [[Rcpp::depends(RcppArmadillo)]]
 // [[Rcpp::plugins(cpp11)]]
