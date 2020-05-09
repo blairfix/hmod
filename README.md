@@ -37,6 +37,41 @@ library(hmod)
 If you have problem installing, or if you find a bug, please let me know.
 
 
+### Functions
+
+Many of the functions in `hmod` have their own repositories with associated README files. Check them out:
+
+* [fit_power_law](https://github.com/blairfix/fit_power_law): fits a power-law to the tail of a distribution of income
+
+* [gini](https://github.com/blairfix/gini): calculates the Gini index of raw data
+
+* [grc](https://github.com/blairfix/grc): calculates the global reaching centrality of a network
+
+* [grid](https://github.com/blairfix/grid): a function for plotting a size distribution as a grid of squares
+
+* [hierarchical_power](https://github.com/blairfix/hierarchical_power): calculates the hierarchical power of individuals in a hierarchy
+
+* [lorenz](https://github.com/blairfix/lorenz): calculates the Lorenz curve for a distribution of income
+
+* [manage_frac](https://github.com/blairfix/manage_frac): models the management fraction of employment in a society
+
+* [project](https://github.com/blairfix/project): projects 3D data onto a 2D plane
+
+* [rpld](https://github.com/blairfix/rpld): generates a discrete power-law distribution
+
+* [string_replace](https://github.com/blairfix/string_replace): a fully-vectorized function for finding and replacing strings
+
+* [top_frac](https://github.com/blairfix/top_frac): calculates the income share of the top n% of incomes, given raw data
+
+* [world_bank](https://github.com/blairfix/world_bank): downloads and manipulates World Bank data
+
+
+
+
+
+
+
+
 
 
 
