@@ -1,6 +1,6 @@
-//File: hierarchy.h
-#ifndef HIERARCHY_H
-#define HIERARCHY_H
+//File: hierarchy_fix_span.h
+#ifndef HIERARCHY_FIX_SPAN_H
+#define HIERARCHY_FIX_SPAN_H
 
 #define ARMA_DONT_USE_WRAPPER
 #define ARMA_NO_DEBUG
@@ -13,7 +13,7 @@ The span of control is fixed for all hierarchical ranks.
 */
 
 
-arma::vec hierarchy_func(const double &emp, const double &span, int & max_rank){
+inline arma::vec hierarchy_func(const double &emp, const double &span, int & max_rank){
 
     // number of hierarchical levels in firm
     double n_levels = floor( log(emp*(span-1)+1)/log(span) );

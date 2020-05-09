@@ -20,7 +20,6 @@
 // for further reference.
 
 
-
 inline arma::uvec hierarchy_func(const int &emp, const double &base, const arma::vec &sprod){
 
     // hierarchical employment vector
@@ -66,10 +65,5 @@ inline arma::uvec hierarchy_func(const int &emp, const double &base, const arma:
     return h;
 
 }
-
-
-
-
-
 
 #endif

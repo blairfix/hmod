@@ -5,12 +5,9 @@
 #include <RcppArmadillo.h>
 #include <random>
 
-
 // Takes a sample of size "size" out of vector x without replacement.
 // Code is taken from the RcppArmadillo sample.h template:
 // https://github.com/RcppCore/RcppArmadillo/blob/master/inst/unitTests/cpp/sample.cpp
-
-
 
 inline arma::uvec sample_index( const arma::vec &x, int size)
 {
@@ -24,7 +21,6 @@ inline arma::uvec sample_index( const arma::vec &x, int size)
     int ii, jj;
     int nOrig = x.size();
     arma::uvec sub(nOrig);
-
 
     for (ii = 0; ii < nOrig; ii++) {
         sub[ii] = ii;
@@ -40,7 +36,5 @@ inline arma::uvec sample_index( const arma::vec &x, int size)
     return index;
 
 }
-
-
 
 #endif
