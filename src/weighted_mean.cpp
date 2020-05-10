@@ -1,14 +1,14 @@
 #include <RcppArmadillo.h>
 
-
 // [[Rcpp::depends(RcppArmadillo)]]
-// [[Rcpp::plugins(cpp11)]]
 // [[Rcpp::export]]
-
-
 
 double weighted_mean( arma::vec x, arma::vec weights)
 {
+
+    if( x.size() != weights.size() ){
+        throw std::range_error("weights must have the same length as x");
+    }
 
 	double total = 0;
 	double total_weight = 0;
