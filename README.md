@@ -38,9 +38,9 @@ Many of the functions in `hmod` have their own repositories with associated READ
 
 * [top_frac](https://github.com/blairfix/top_frac): calculates the income share of the top n% of incomes, given raw data
 
+* [weighted_mean](https://github.com/blairfix/weighted_mean): calculates the weighted mean of a vector of numbers, given another vector of weights
+
 * [world_bank](https://github.com/blairfix/world_bank): downloads and manipulates World Bank data
-
-
 
 
 
@@ -61,7 +61,6 @@ Then  open the file `hmod.Rproj` in Rstudio. In the R terminal, enter this comma
  Sys.setenv("PKG_CXXFLAGS"="-std=c++11 -O3 -march=native")
 ```
 
-
 Next, the top right panel, click the "Build" tab. Clock "Install and Restart". If everything works, you'll then be able to load `hmod` like any other library:
 
 ```R
@@ -69,11 +68,6 @@ library(hmod)
 ```
 
 If you have problem installing, or if you find a bug, please let me know.
-
-
-
-
-
 
 
 
