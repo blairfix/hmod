@@ -62,8 +62,6 @@ arma::vec ceo_pay_ratio(    double a,
 
     }
 
-
-
     return pay_ratio;
 }
 

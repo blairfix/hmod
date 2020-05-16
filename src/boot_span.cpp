@@ -1,15 +1,10 @@
 #include <RcppArmadillo.h>
 
-
-
-
 // boot_span is a function to bootstrap from an empirical relation between the
 // span of control s, and hierarchal level h. The function first samples pairs
 // of data from s and h. It then uses the Armadillo solve function to get
 // coefficients for a fitted exponential function. The output is span coefficients
 // a and b.
-
-
 
 // [[Rcpp::depends(RcppArmadillo)]]
 // [[Rcpp::plugins(cpp11)]]
@@ -19,8 +14,6 @@ arma::vec  boot_span(arma::vec h, arma::vec s)
 {
 
     int n = s.size();
-
-
 
     // sample from span of control data
     int index;          // sample index

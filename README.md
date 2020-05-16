@@ -24,6 +24,8 @@ Many of the functions in `hmod` have their own repositories with associated READ
 
 * [grid](https://github.com/blairfix/grid): a function for plotting a size distribution as a grid of squares
 
+* [hierarchy][https://github.com/blairfix/hierarchy]: generates a hierarchy with a fixed span of control
+
 * [hierarchical_power](https://github.com/blairfix/hierarchical_power): calculates the hierarchical power of individuals in a hierarchy
 
 * [lorenz](https://github.com/blairfix/lorenz): calculates the Lorenz curve for a distribution of income
