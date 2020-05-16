@@ -20,21 +20,25 @@ arma::vec hierarchy(const double &firm_size, const double &span_of_control){
 
     // hierarchical employment vector
     // (leave exta elements at end of vector for possible overshoot
-    arma::vec h = arma::zeros<arma::vec>( n_levels + 2);
+    int max_h = n_levels + 3;
+    arma::vec h = arma::zeros<arma::vec>( max_h );
 
     // get size of bottom rank
-    double base =  ceil( firm_size*( 1 - 1/span_of_control )/( 1 - std::pow(1/span_of_control, n_levels) ) );
+    double base =  round( firm_size*( 1 - 1/span_of_control )/( 1 - std::pow(1/span_of_control, n_levels) ) );
 
-    // correct to allow firm size of 1
-    if( h[0] < 1 ){ h[0] = 1 ;}
+    h[0] = base;
 
-    int i = 0;
-    while( h[i] != 0 ){
+
+   // correct base to allow firm size of 1
+   if( h[0] < 1 ){ h[0] = 1 ;}
+
+   int i = 0;
+   while( h[i] != 0  & i < max_h  ){
 
         i++;
         h[i] =  floor( base / std::pow(span_of_control, i) );
 
-    }
+   }
 
     int max_rank = i;
 
@@ -55,5 +59,6 @@ arma::vec hierarchy(const double &firm_size, const double &span_of_control){
     }
 
     return h.subvec(0, max_rank - 1);
+
 
 }

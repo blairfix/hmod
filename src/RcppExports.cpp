@@ -244,6 +244,18 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// hierarchy
+arma::vec hierarchy(const double& firm_size, const double& span_of_control);
+RcppExport SEXP _hmod_hierarchy(SEXP firm_sizeSEXP, SEXP span_of_controlSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const double& >::type firm_size(firm_sizeSEXP);
+    Rcpp::traits::input_parameter< const double& >::type span_of_control(span_of_controlSEXP);
+    rcpp_result_gen = Rcpp::wrap(hierarchy(firm_size, span_of_control));
+    return rcpp_result_gen;
+END_RCPP
+}
 // hp_mod
 arma::vec hp_mod(const arma::vec& firm_vec, double span);
 RcppExport SEXP _hmod_hp_mod(SEXP firm_vecSEXP, SEXP spanSEXP) {
@@ -392,15 +404,15 @@ BEGIN_RCPP
 END_RCPP
 }
 // top_k
-arma::rowvec top_k(const arma::vec& pay, const arma::vec& emp, int k);
-RcppExport SEXP _hmod_top_k(SEXP paySEXP, SEXP empSEXP, SEXP kSEXP) {
+arma::rowvec top_k(const arma::vec& sort_vec, const arma::vec& data_vec, int k);
+RcppExport SEXP _hmod_top_k(SEXP sort_vecSEXP, SEXP data_vecSEXP, SEXP kSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const arma::vec& >::type pay(paySEXP);
-    Rcpp::traits::input_parameter< const arma::vec& >::type emp(empSEXP);
+    Rcpp::traits::input_parameter< const arma::vec& >::type sort_vec(sort_vecSEXP);
+    Rcpp::traits::input_parameter< const arma::vec& >::type data_vec(data_vecSEXP);
     Rcpp::traits::input_parameter< int >::type k(kSEXP);
-    rcpp_result_gen = Rcpp::wrap(top_k(pay, emp, k));
+    rcpp_result_gen = Rcpp::wrap(top_k(sort_vec, data_vec, k));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -435,6 +447,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_hmod_grid_plot_beta", (DL_FUNC) &_hmod_grid_plot_beta, 8},
     {"_hmod_grid_plot_r", (DL_FUNC) &_hmod_grid_plot_r, 7},
     {"_hmod_hierarchical_power", (DL_FUNC) &_hmod_hierarchical_power, 1},
+    {"_hmod_hierarchy", (DL_FUNC) &_hmod_hierarchy, 2},
     {"_hmod_hp_mod", (DL_FUNC) &_hmod_hp_mod, 2},
     {"_hmod_k_function", (DL_FUNC) &_hmod_k_function, 3},
     {"_hmod_lorenz", (DL_FUNC) &_hmod_lorenz, 4},

@@ -69,6 +69,10 @@ hierarchical_power <- function(hierarchy_vec) {
     .Call('_hmod_hierarchical_power', PACKAGE = 'hmod', hierarchy_vec)
 }
 
+hierarchy <- function(firm_size, span_of_control) {
+    .Call('_hmod_hierarchy', PACKAGE = 'hmod', firm_size, span_of_control)
+}
+
 hp_mod <- function(firm_vec, span) {
     .Call('_hmod_hp_mod', PACKAGE = 'hmod', firm_vec, span)
 }
@@ -109,8 +113,8 @@ top_frac <- function(pay, frac) {
     .Call('_hmod_top_frac', PACKAGE = 'hmod', pay, frac)
 }
 
-top_k <- function(pay, emp, k) {
-    .Call('_hmod_top_k', PACKAGE = 'hmod', pay, emp, k)
+top_k <- function(sort_vec, data_vec, k) {
+    .Call('_hmod_top_k', PACKAGE = 'hmod', sort_vec, data_vec, k)
 }
 
 weighted_mean <- function(x, weights) {
