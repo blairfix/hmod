@@ -16,6 +16,8 @@ For a description of these models, see:
 
 Many of the functions in `hmod` have their own repositories with associated README files. Check them out:
 
+* [boot_mean](https://github.com/blairfix/boot_mean): calculates the confidence interval of the mean using the bootstrap method
+
 * [fit_power_law](https://github.com/blairfix/fit_power_law): fits a power-law to the tail of a distribution of income
 
 * [gini](https://github.com/blairfix/gini): calculates the Gini index of raw data
