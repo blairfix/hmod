@@ -21,6 +21,10 @@ beta_sim_log <- function(employment, beta, sim_employment, bin_factor) {
     .Call('_hmod_beta_sim_log', PACKAGE = 'hmod', employment, beta, sim_employment, bin_factor)
 }
 
+boot_mean <- function(x, conf, n_boot) {
+    .Call('_hmod_boot_mean', PACKAGE = 'hmod', x, conf, n_boot)
+}
+
 boot_sigma <- function(x) {
     .Call('_hmod_boot_sigma', PACKAGE = 'hmod', x)
 }

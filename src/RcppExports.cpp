@@ -72,6 +72,19 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// boot_mean
+arma::vec boot_mean(arma::vec x, double conf, double n_boot);
+RcppExport SEXP _hmod_boot_mean(SEXP xSEXP, SEXP confSEXP, SEXP n_bootSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::vec >::type x(xSEXP);
+    Rcpp::traits::input_parameter< double >::type conf(confSEXP);
+    Rcpp::traits::input_parameter< double >::type n_boot(n_bootSEXP);
+    rcpp_result_gen = Rcpp::wrap(boot_mean(x, conf, n_boot));
+    return rcpp_result_gen;
+END_RCPP
+}
 // boot_sigma
 double boot_sigma(arma::vec x);
 RcppExport SEXP _hmod_boot_sigma(SEXP xSEXP) {
@@ -435,6 +448,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_hmod_base_pay_sim_beta", (DL_FUNC) &_hmod_base_pay_sim_beta, 3},
     {"_hmod_beta_sim_linear", (DL_FUNC) &_hmod_beta_sim_linear, 4},
     {"_hmod_beta_sim_log", (DL_FUNC) &_hmod_beta_sim_log, 4},
+    {"_hmod_boot_mean", (DL_FUNC) &_hmod_boot_mean, 3},
     {"_hmod_boot_sigma", (DL_FUNC) &_hmod_boot_sigma, 1},
     {"_hmod_boot_span", (DL_FUNC) &_hmod_boot_span, 2},
     {"_hmod_ceo_pay_ratio", (DL_FUNC) &_hmod_ceo_pay_ratio, 6},
