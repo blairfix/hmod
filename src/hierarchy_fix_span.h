@@ -1,6 +1,6 @@
-//File: hierarchy_fix_span.h
-#ifndef HIERARCHY_FIX_SPAN_H
-#define HIERARCHY_FIX_SPAN_H
+//File: hierarchy.h
+#ifndef HIERARCHY_H
+#define HIERARCHY_H
 
 #define ARMA_DONT_USE_WRAPPER
 #define ARMA_NO_DEBUG
@@ -12,7 +12,8 @@ Creates a hierarchy from an inputed firm size vector.
 The span of control is fixed for all hierarchical ranks.
 */
 
-inline arma::vec hierarchy_func(const double &emp, const double &span, int & max_rank){
+
+arma::vec hierarchy_func(const double &emp, const double &span, int & max_rank){
 
     // number of hierarchical levels in firm
     int n_levels = round( log(emp*(span-1)+1)/log(span) );
@@ -38,13 +39,15 @@ inline arma::vec hierarchy_func(const double &emp, const double &span, int & max
         h[i] = level;
 
         if( level == 0){
+
             max_rank = i;
             stop = true;
-        }
 
-        if( i == max_h - 1){
+        } else if( i == max_h - 1){
+
             max_rank = i + 1;
             stop = true;
+
         }
 
         i++;
