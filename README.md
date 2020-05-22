@@ -30,6 +30,8 @@ Many of the functions in `hmod` have their own repositories with associated READ
 
 * [hierarchical_power](https://github.com/blairfix/hierarchical_power): calculates the hierarchical power of individuals in a hierarchy
 
+* [hp_mod](https://github.com/blairfix/hp_mod): simulates the distribution of hierarchical power in a population of firms
+
 * [lorenz](https://github.com/blairfix/lorenz): calculates the Lorenz curve for a distribution of income
 
 * [manage_frac](https://github.com/blairfix/manage_frac): models the management fraction of employment in a society
