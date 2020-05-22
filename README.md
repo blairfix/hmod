@@ -10,7 +10,7 @@ For a description of these models, see:
 
 * *Hierarchy and the Power-Law Income Distribution Tail*. Journal of Computational Social Science. 2018; 1(2):471–91. [SocArXiv preprint](https://osf.io/u95dk/)
 
-
+* Fix, B. (2020). Economic Development and the Death of the Free Market. SocArXiv. https://doi.org/10.31235/osf.io/g86am
 
 ### Functions
 
