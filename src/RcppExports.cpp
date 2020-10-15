@@ -375,6 +375,18 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// read_ngram
+DataFrame read_ngram(std::string filename, std::vector<std::string> wordlist);
+RcppExport SEXP _hmod_read_ngram(SEXP filenameSEXP, SEXP wordlistSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< std::string >::type filename(filenameSEXP);
+    Rcpp::traits::input_parameter< std::vector<std::string> >::type wordlist(wordlistSEXP);
+    rcpp_result_gen = Rcpp::wrap(read_ngram(filename, wordlist));
+    return rcpp_result_gen;
+END_RCPP
+}
 // rpld
 Rcpp::NumericVector rpld(int n, int xmin, double alpha, int discrete_max, int xmax, bool ordered);
 RcppExport SEXP _hmod_rpld(SEXP nSEXP, SEXP xminSEXP, SEXP alphaSEXP, SEXP discrete_maxSEXP, SEXP xmaxSEXP, SEXP orderedSEXP) {
@@ -469,6 +481,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_hmod_model_beta", (DL_FUNC) &_hmod_model_beta, 10},
     {"_hmod_model_r", (DL_FUNC) &_hmod_model_r, 10},
     {"_hmod_project", (DL_FUNC) &_hmod_project, 4},
+    {"_hmod_read_ngram", (DL_FUNC) &_hmod_read_ngram, 2},
     {"_hmod_rpld", (DL_FUNC) &_hmod_rpld, 6},
     {"_hmod_string_replace", (DL_FUNC) &_hmod_string_replace, 3},
     {"_hmod_top_frac", (DL_FUNC) &_hmod_top_frac, 2},
