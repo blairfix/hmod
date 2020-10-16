@@ -53,6 +53,14 @@ fit_r <- function(a, b, base_emp_vec, emp_vec, c_r_vec, m_pay_vec, tol) {
     .Call('_hmod_fit_r', PACKAGE = 'hmod', a, b, base_emp_vec, emp_vec, c_r_vec, m_pay_vec, tol)
 }
 
+get_data <- function(filename, ids) {
+    .Call('_hmod_get_data', PACKAGE = 'hmod', filename, ids)
+}
+
+get_words <- function(filename) {
+    .Call('_hmod_get_words', PACKAGE = 'hmod', filename)
+}
+
 gini <- function(x, corr = FALSE) {
     .Call('_hmod_gini', PACKAGE = 'hmod', x, corr)
 }

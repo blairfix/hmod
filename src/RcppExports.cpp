@@ -188,6 +188,29 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// get_data
+DataFrame get_data(std::string filename, std::vector<int> ids);
+RcppExport SEXP _hmod_get_data(SEXP filenameSEXP, SEXP idsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< std::string >::type filename(filenameSEXP);
+    Rcpp::traits::input_parameter< std::vector<int> >::type ids(idsSEXP);
+    rcpp_result_gen = Rcpp::wrap(get_data(filename, ids));
+    return rcpp_result_gen;
+END_RCPP
+}
+// get_words
+std::vector<std::string> get_words(std::string filename);
+RcppExport SEXP _hmod_get_words(SEXP filenameSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< std::string >::type filename(filenameSEXP);
+    rcpp_result_gen = Rcpp::wrap(get_words(filename));
+    return rcpp_result_gen;
+END_RCPP
+}
 // gini
 double gini(arma::vec x, bool corr);
 RcppExport SEXP _hmod_gini(SEXP xSEXP, SEXP corrSEXP) {
@@ -375,18 +398,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// read_ngram
-DataFrame read_ngram(std::string filename, std::vector<std::string> wordlist);
-RcppExport SEXP _hmod_read_ngram(SEXP filenameSEXP, SEXP wordlistSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< std::string >::type filename(filenameSEXP);
-    Rcpp::traits::input_parameter< std::vector<std::string> >::type wordlist(wordlistSEXP);
-    rcpp_result_gen = Rcpp::wrap(read_ngram(filename, wordlist));
-    return rcpp_result_gen;
-END_RCPP
-}
 // rpld
 Rcpp::NumericVector rpld(int n, int xmin, double alpha, int discrete_max, int xmax, bool ordered);
 RcppExport SEXP _hmod_rpld(SEXP nSEXP, SEXP xminSEXP, SEXP alphaSEXP, SEXP discrete_maxSEXP, SEXP xmaxSEXP, SEXP orderedSEXP) {
@@ -468,6 +479,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_hmod_firm_mean_pay", (DL_FUNC) &_hmod_firm_mean_pay, 6},
     {"_hmod_fit_beta", (DL_FUNC) &_hmod_fit_beta, 9},
     {"_hmod_fit_r", (DL_FUNC) &_hmod_fit_r, 7},
+    {"_hmod_get_data", (DL_FUNC) &_hmod_get_data, 2},
+    {"_hmod_get_words", (DL_FUNC) &_hmod_get_words, 1},
     {"_hmod_gini", (DL_FUNC) &_hmod_gini, 2},
     {"_hmod_grc", (DL_FUNC) &_hmod_grc, 1},
     {"_hmod_grid_plot_beta", (DL_FUNC) &_hmod_grid_plot_beta, 8},
@@ -481,7 +494,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_hmod_model_beta", (DL_FUNC) &_hmod_model_beta, 10},
     {"_hmod_model_r", (DL_FUNC) &_hmod_model_r, 10},
     {"_hmod_project", (DL_FUNC) &_hmod_project, 4},
-    {"_hmod_read_ngram", (DL_FUNC) &_hmod_read_ngram, 2},
     {"_hmod_rpld", (DL_FUNC) &_hmod_rpld, 6},
     {"_hmod_string_replace", (DL_FUNC) &_hmod_string_replace, 3},
     {"_hmod_top_frac", (DL_FUNC) &_hmod_top_frac, 2},
