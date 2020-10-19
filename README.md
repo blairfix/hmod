@@ -38,6 +38,8 @@ Many of the functions in `hmod` have their own repositories with associated READ
 
 * [project](https://github.com/blairfix/project): projects 3D data onto a 2D plane
 
+* [read_ngram](https://github.com/blairfix/read_ngram): functions for reading Google Ngram 2020 data
+
 * [rpld](https://github.com/blairfix/rpld): generates a discrete power-law distribution
 
 * [string_replace](https://github.com/blairfix/string_replace): a fully-vectorized function for finding and replacing strings

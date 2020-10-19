@@ -57,8 +57,8 @@ get_data <- function(filename, ids) {
     .Call('_hmod_get_data', PACKAGE = 'hmod', filename, ids)
 }
 
-get_words <- function(filename) {
-    .Call('_hmod_get_words', PACKAGE = 'hmod', filename)
+get_ngrams <- function(filename) {
+    .Call('_hmod_get_ngrams', PACKAGE = 'hmod', filename)
 }
 
 gini <- function(x, corr = FALSE) {
