@@ -10,7 +10,7 @@ using namespace Rcpp;
 // [[Rcpp::plugins(cpp11)]]
 // [[Rcpp::export]]
 
-std::vector<std::string> get_words(std::string filename)
+std::vector<std::string> get_ngrams(std::string filename)
 {
 
     // test if file exists

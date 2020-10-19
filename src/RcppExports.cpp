@@ -200,14 +200,14 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// get_words
-std::vector<std::string> get_words(std::string filename);
-RcppExport SEXP _hmod_get_words(SEXP filenameSEXP) {
+// get_ngrams
+std::vector<std::string> get_ngrams(std::string filename);
+RcppExport SEXP _hmod_get_ngrams(SEXP filenameSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< std::string >::type filename(filenameSEXP);
-    rcpp_result_gen = Rcpp::wrap(get_words(filename));
+    rcpp_result_gen = Rcpp::wrap(get_ngrams(filename));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -480,7 +480,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_hmod_fit_beta", (DL_FUNC) &_hmod_fit_beta, 9},
     {"_hmod_fit_r", (DL_FUNC) &_hmod_fit_r, 7},
     {"_hmod_get_data", (DL_FUNC) &_hmod_get_data, 2},
-    {"_hmod_get_words", (DL_FUNC) &_hmod_get_words, 1},
+    {"_hmod_get_ngrams", (DL_FUNC) &_hmod_get_ngrams, 1},
     {"_hmod_gini", (DL_FUNC) &_hmod_gini, 2},
     {"_hmod_grc", (DL_FUNC) &_hmod_grc, 1},
     {"_hmod_grid_plot_beta", (DL_FUNC) &_hmod_grid_plot_beta, 8},
