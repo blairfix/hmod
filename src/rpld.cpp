@@ -25,6 +25,7 @@
 
 // NOTES
 // note: to enable c+11 compile, enter command below before compiling
+// Sys.setenv("PKG_CXXFLAGS"="-std=c++11 -O3 -march=native", "PKG_LIBS"="-lboost_regex")
 // Sys.setenv("PKG_CXXFLAGS"="-std=c++11 -O3 -march=native")
 
 
