@@ -424,32 +424,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// prod_curve
-std::map< std::string, std::list<double>> prod_curve(const arma::uvec& well_id, const arma::vec& prod_first_6, const arma::vec& prod_first_12, const arma::vec& prod_first_24, const arma::vec& prod_first_60, const arma::vec& prod_last_year, const arma::vec& prod_daily_last_year, const arma::vec& prod_cumulative, const arma::vec& prod_peak_daily, const arma::vec& date_start, const arma::vec& date_end, const arma::vec& peak_month, const arma::vec& decline_3, const arma::vec& decline_12, const arma::vec& decline_24, const arma::vec& decline_60);
-RcppExport SEXP _hmod_prod_curve(SEXP well_idSEXP, SEXP prod_first_6SEXP, SEXP prod_first_12SEXP, SEXP prod_first_24SEXP, SEXP prod_first_60SEXP, SEXP prod_last_yearSEXP, SEXP prod_daily_last_yearSEXP, SEXP prod_cumulativeSEXP, SEXP prod_peak_dailySEXP, SEXP date_startSEXP, SEXP date_endSEXP, SEXP peak_monthSEXP, SEXP decline_3SEXP, SEXP decline_12SEXP, SEXP decline_24SEXP, SEXP decline_60SEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const arma::uvec& >::type well_id(well_idSEXP);
-    Rcpp::traits::input_parameter< const arma::vec& >::type prod_first_6(prod_first_6SEXP);
-    Rcpp::traits::input_parameter< const arma::vec& >::type prod_first_12(prod_first_12SEXP);
-    Rcpp::traits::input_parameter< const arma::vec& >::type prod_first_24(prod_first_24SEXP);
-    Rcpp::traits::input_parameter< const arma::vec& >::type prod_first_60(prod_first_60SEXP);
-    Rcpp::traits::input_parameter< const arma::vec& >::type prod_last_year(prod_last_yearSEXP);
-    Rcpp::traits::input_parameter< const arma::vec& >::type prod_daily_last_year(prod_daily_last_yearSEXP);
-    Rcpp::traits::input_parameter< const arma::vec& >::type prod_cumulative(prod_cumulativeSEXP);
-    Rcpp::traits::input_parameter< const arma::vec& >::type prod_peak_daily(prod_peak_dailySEXP);
-    Rcpp::traits::input_parameter< const arma::vec& >::type date_start(date_startSEXP);
-    Rcpp::traits::input_parameter< const arma::vec& >::type date_end(date_endSEXP);
-    Rcpp::traits::input_parameter< const arma::vec& >::type peak_month(peak_monthSEXP);
-    Rcpp::traits::input_parameter< const arma::vec& >::type decline_3(decline_3SEXP);
-    Rcpp::traits::input_parameter< const arma::vec& >::type decline_12(decline_12SEXP);
-    Rcpp::traits::input_parameter< const arma::vec& >::type decline_24(decline_24SEXP);
-    Rcpp::traits::input_parameter< const arma::vec& >::type decline_60(decline_60SEXP);
-    rcpp_result_gen = Rcpp::wrap(prod_curve(well_id, prod_first_6, prod_first_12, prod_first_24, prod_first_60, prod_last_year, prod_daily_last_year, prod_cumulative, prod_peak_daily, date_start, date_end, peak_month, decline_3, decline_12, decline_24, decline_60));
-    return rcpp_result_gen;
-END_RCPP
-}
 // project
 arma::mat project(arma::mat a, arma::vec c, arma::vec theta, arma::vec e);
 RcppExport SEXP _hmod_project(SEXP aSEXP, SEXP cSEXP, SEXP thetaSEXP, SEXP eSEXP) {
@@ -574,7 +548,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_hmod_manager_frac", (DL_FUNC) &_hmod_manager_frac, 3},
     {"_hmod_model_beta", (DL_FUNC) &_hmod_model_beta, 10},
     {"_hmod_model_r", (DL_FUNC) &_hmod_model_r, 10},
-    {"_hmod_prod_curve", (DL_FUNC) &_hmod_prod_curve, 16},
     {"_hmod_project", (DL_FUNC) &_hmod_project, 4},
     {"_hmod_read_column", (DL_FUNC) &_hmod_read_column, 3},
     {"_hmod_rpld", (DL_FUNC) &_hmod_rpld, 6},
