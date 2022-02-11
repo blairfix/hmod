@@ -193,29 +193,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// get_data
-DataFrame get_data(std::string filename, std::vector<int> ids);
-RcppExport SEXP _hmod_get_data(SEXP filenameSEXP, SEXP idsSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< std::string >::type filename(filenameSEXP);
-    Rcpp::traits::input_parameter< std::vector<int> >::type ids(idsSEXP);
-    rcpp_result_gen = Rcpp::wrap(get_data(filename, ids));
-    return rcpp_result_gen;
-END_RCPP
-}
-// get_ngrams
-std::vector<std::string> get_ngrams(std::string filename);
-RcppExport SEXP _hmod_get_ngrams(SEXP filenameSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< std::string >::type filename(filenameSEXP);
-    rcpp_result_gen = Rcpp::wrap(get_ngrams(filename));
-    return rcpp_result_gen;
-END_RCPP
-}
 // gini
 double gini(arma::vec x, bool corr);
 RcppExport SEXP _hmod_gini(SEXP xSEXP, SEXP corrSEXP) {
@@ -336,41 +313,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// lotka_volt
-arma::mat lotka_volt(double r_0, double c_0, double k_1, double k_2, double k_3, double time, double step_size);
-RcppExport SEXP _hmod_lotka_volt(SEXP r_0SEXP, SEXP c_0SEXP, SEXP k_1SEXP, SEXP k_2SEXP, SEXP k_3SEXP, SEXP timeSEXP, SEXP step_sizeSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< double >::type r_0(r_0SEXP);
-    Rcpp::traits::input_parameter< double >::type c_0(c_0SEXP);
-    Rcpp::traits::input_parameter< double >::type k_1(k_1SEXP);
-    Rcpp::traits::input_parameter< double >::type k_2(k_2SEXP);
-    Rcpp::traits::input_parameter< double >::type k_3(k_3SEXP);
-    Rcpp::traits::input_parameter< double >::type time(timeSEXP);
-    Rcpp::traits::input_parameter< double >::type step_size(step_sizeSEXP);
-    rcpp_result_gen = Rcpp::wrap(lotka_volt(r_0, c_0, k_1, k_2, k_3, time, step_size));
-    return rcpp_result_gen;
-END_RCPP
-}
-// lotka_volt_cumulative
-arma::mat lotka_volt_cumulative(double r_0, double c_0, double k_1, double k_2, double k_3_init, double k_3_slope, double time, double step_size);
-RcppExport SEXP _hmod_lotka_volt_cumulative(SEXP r_0SEXP, SEXP c_0SEXP, SEXP k_1SEXP, SEXP k_2SEXP, SEXP k_3_initSEXP, SEXP k_3_slopeSEXP, SEXP timeSEXP, SEXP step_sizeSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< double >::type r_0(r_0SEXP);
-    Rcpp::traits::input_parameter< double >::type c_0(c_0SEXP);
-    Rcpp::traits::input_parameter< double >::type k_1(k_1SEXP);
-    Rcpp::traits::input_parameter< double >::type k_2(k_2SEXP);
-    Rcpp::traits::input_parameter< double >::type k_3_init(k_3_initSEXP);
-    Rcpp::traits::input_parameter< double >::type k_3_slope(k_3_slopeSEXP);
-    Rcpp::traits::input_parameter< double >::type time(timeSEXP);
-    Rcpp::traits::input_parameter< double >::type step_size(step_sizeSEXP);
-    rcpp_result_gen = Rcpp::wrap(lotka_volt_cumulative(r_0, c_0, k_1, k_2, k_3_init, k_3_slope, time, step_size));
-    return rcpp_result_gen;
-END_RCPP
-}
 // manager_frac
 double manager_frac(const arma::vec& firm_vec, double span, int manage_rank_thresh);
 RcppExport SEXP _hmod_manager_frac(SEXP firm_vecSEXP, SEXP spanSEXP, SEXP manage_rank_threshSEXP) {
@@ -438,19 +380,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// read_column
-std::vector<std::string> read_column(std::string filename, int col_number, std::string delimiter);
-RcppExport SEXP _hmod_read_column(SEXP filenameSEXP, SEXP col_numberSEXP, SEXP delimiterSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< std::string >::type filename(filenameSEXP);
-    Rcpp::traits::input_parameter< int >::type col_number(col_numberSEXP);
-    Rcpp::traits::input_parameter< std::string >::type delimiter(delimiterSEXP);
-    rcpp_result_gen = Rcpp::wrap(read_column(filename, col_number, delimiter));
-    return rcpp_result_gen;
-END_RCPP
-}
 // rpld
 Rcpp::NumericVector rpld(int n, int xmin, double alpha, int discrete_max, int xmax, bool ordered);
 RcppExport SEXP _hmod_rpld(SEXP nSEXP, SEXP xminSEXP, SEXP alphaSEXP, SEXP discrete_maxSEXP, SEXP xmaxSEXP, SEXP orderedSEXP) {
@@ -464,19 +393,6 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< int >::type xmax(xmaxSEXP);
     Rcpp::traits::input_parameter< bool >::type ordered(orderedSEXP);
     rcpp_result_gen = Rcpp::wrap(rpld(n, xmin, alpha, discrete_max, xmax, ordered));
-    return rcpp_result_gen;
-END_RCPP
-}
-// string_replace
-std::vector<std::string> string_replace(std::vector<std::string> original, std::vector<std::string> replacement, std::vector<std::string> input_string);
-RcppExport SEXP _hmod_string_replace(SEXP originalSEXP, SEXP replacementSEXP, SEXP input_stringSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< std::vector<std::string> >::type original(originalSEXP);
-    Rcpp::traits::input_parameter< std::vector<std::string> >::type replacement(replacementSEXP);
-    Rcpp::traits::input_parameter< std::vector<std::string> >::type input_string(input_stringSEXP);
-    rcpp_result_gen = Rcpp::wrap(string_replace(original, replacement, input_string));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -532,8 +448,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_hmod_firm_mean_pay", (DL_FUNC) &_hmod_firm_mean_pay, 6},
     {"_hmod_fit_beta", (DL_FUNC) &_hmod_fit_beta, 9},
     {"_hmod_fit_r", (DL_FUNC) &_hmod_fit_r, 7},
-    {"_hmod_get_data", (DL_FUNC) &_hmod_get_data, 2},
-    {"_hmod_get_ngrams", (DL_FUNC) &_hmod_get_ngrams, 1},
     {"_hmod_gini", (DL_FUNC) &_hmod_gini, 2},
     {"_hmod_grc", (DL_FUNC) &_hmod_grc, 1},
     {"_hmod_grid_plot_beta", (DL_FUNC) &_hmod_grid_plot_beta, 8},
@@ -543,15 +457,11 @@ static const R_CallMethodDef CallEntries[] = {
     {"_hmod_hp_mod", (DL_FUNC) &_hmod_hp_mod, 2},
     {"_hmod_k_function", (DL_FUNC) &_hmod_k_function, 3},
     {"_hmod_lorenz", (DL_FUNC) &_hmod_lorenz, 4},
-    {"_hmod_lotka_volt", (DL_FUNC) &_hmod_lotka_volt, 7},
-    {"_hmod_lotka_volt_cumulative", (DL_FUNC) &_hmod_lotka_volt_cumulative, 8},
     {"_hmod_manager_frac", (DL_FUNC) &_hmod_manager_frac, 3},
     {"_hmod_model_beta", (DL_FUNC) &_hmod_model_beta, 10},
     {"_hmod_model_r", (DL_FUNC) &_hmod_model_r, 10},
     {"_hmod_project", (DL_FUNC) &_hmod_project, 4},
-    {"_hmod_read_column", (DL_FUNC) &_hmod_read_column, 3},
     {"_hmod_rpld", (DL_FUNC) &_hmod_rpld, 6},
-    {"_hmod_string_replace", (DL_FUNC) &_hmod_string_replace, 3},
     {"_hmod_top_frac", (DL_FUNC) &_hmod_top_frac, 2},
     {"_hmod_top_k", (DL_FUNC) &_hmod_top_k, 3},
     {"_hmod_weighted_mean", (DL_FUNC) &_hmod_weighted_mean, 2},

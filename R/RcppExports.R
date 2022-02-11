@@ -53,14 +53,6 @@ fit_r <- function(a, b, base_emp_vec, emp_vec, c_r_vec, m_pay_vec, tol) {
     .Call('_hmod_fit_r', PACKAGE = 'hmod', a, b, base_emp_vec, emp_vec, c_r_vec, m_pay_vec, tol)
 }
 
-get_data <- function(filename, ids) {
-    .Call('_hmod_get_data', PACKAGE = 'hmod', filename, ids)
-}
-
-get_ngrams <- function(filename) {
-    .Call('_hmod_get_ngrams', PACKAGE = 'hmod', filename)
-}
-
 gini <- function(x, corr = FALSE) {
     .Call('_hmod_gini', PACKAGE = 'hmod', x, corr)
 }
@@ -97,14 +89,6 @@ lorenz <- function(pay, lower, upper, n_bins) {
     .Call('_hmod_lorenz', PACKAGE = 'hmod', pay, lower, upper, n_bins)
 }
 
-lotka_volt <- function(r_0, c_0, k_1, k_2, k_3, time, step_size) {
-    .Call('_hmod_lotka_volt', PACKAGE = 'hmod', r_0, c_0, k_1, k_2, k_3, time, step_size)
-}
-
-lotka_volt_cumulative <- function(r_0, c_0, k_1, k_2, k_3_init, k_3_slope, time, step_size) {
-    .Call('_hmod_lotka_volt_cumulative', PACKAGE = 'hmod', r_0, c_0, k_1, k_2, k_3_init, k_3_slope, time, step_size)
-}
-
 manager_frac <- function(firm_vec, span, manage_rank_thresh) {
     .Call('_hmod_manager_frac', PACKAGE = 'hmod', firm_vec, span, manage_rank_thresh)
 }
@@ -117,24 +101,12 @@ model_r <- function(a, b, base_emp_vec, emp_vec, base_pay_vec, r_vec, sigma, fir
     .Call('_hmod_model_r', PACKAGE = 'hmod', a, b, base_emp_vec, emp_vec, base_pay_vec, r_vec, sigma, firm_size, hierarchy, power)
 }
 
-prod_curve <- function(well_id, prod_first_6, prod_first_12, prod_first_24, prod_first_60, prod_last_year, prod_daily_last_year, prod_cumulative, prod_peak_daily, date_start, date_end, peak_month, decline_3, decline_12, decline_24, decline_60) {
-    .Call('_hmod_prod_curve', PACKAGE = 'hmod', well_id, prod_first_6, prod_first_12, prod_first_24, prod_first_60, prod_last_year, prod_daily_last_year, prod_cumulative, prod_peak_daily, date_start, date_end, peak_month, decline_3, decline_12, decline_24, decline_60)
-}
-
 project <- function(a, c, theta, e) {
     .Call('_hmod_project', PACKAGE = 'hmod', a, c, theta, e)
 }
 
-read_column <- function(filename, col_number, delimiter) {
-    .Call('_hmod_read_column', PACKAGE = 'hmod', filename, col_number, delimiter)
-}
-
 rpld <- function(n, xmin, alpha, discrete_max = 10000L, xmax = 0L, ordered = FALSE) {
     .Call('_hmod_rpld', PACKAGE = 'hmod', n, xmin, alpha, discrete_max, xmax, ordered)
-}
-
-string_replace <- function(original, replacement, input_string) {
-    .Call('_hmod_string_replace', PACKAGE = 'hmod', original, replacement, input_string)
 }
 
 top_frac <- function(pay, frac) {
