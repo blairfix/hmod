@@ -2,7 +2,6 @@
 #include <algorithm>
 #include <random>
 #include <math.h>
-#include <boost/progress.hpp>
 #include "exponents.h"
 
 using namespace std;

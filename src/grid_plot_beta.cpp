@@ -1,6 +1,5 @@
 #include <RcppArmadillo.h>
 #include <algorithm>
-#include <boost/progress.hpp>
 #include "exponents.h"
 #include "hierarchy.h"
 #include "hierarchical_power_v1.h"

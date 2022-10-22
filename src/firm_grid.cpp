@@ -2,7 +2,6 @@
 #include <algorithm>
 #include <random>
 #include <math.h>
-#include <boost/progress.hpp>
 
 
 
@@ -45,7 +44,6 @@ arma::imat firm_grid(arma::vec base_vec, int stretch)
     int grid_index = 0;
     bool more_firms = true;
 
-    boost::progress_display show_progress(base_vec.size());
     while(more_firms){
 
         bool occupied = true;
@@ -80,7 +78,6 @@ arma::imat firm_grid(arma::vec base_vec, int stretch)
                     firm_coord(firm_index, 3) = y_shift;
                     firm_coord(firm_index, 4) = y_shift + firm_side;
 
-                    ++show_progress;
                     ++firm_index;
                     if(firm_index == n_firm){ more_firms = false; }
                 }
