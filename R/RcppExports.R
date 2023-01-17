@@ -21,10 +21,6 @@ beta_sim_log <- function(employment, beta, sim_employment, bin_factor) {
     .Call('_hmod_beta_sim_log', PACKAGE = 'hmod', employment, beta, sim_employment, bin_factor)
 }
 
-boot_mean <- function(x, conf, n_boot) {
-    .Call('_hmod_boot_mean', PACKAGE = 'hmod', x, conf, n_boot)
-}
-
 boot_sigma <- function(x) {
     .Call('_hmod_boot_sigma', PACKAGE = 'hmod', x)
 }
@@ -51,10 +47,6 @@ fit_beta <- function(a, b, base_employment_vec, total_employment_vec, ceo_ratio_
 
 fit_r <- function(a, b, base_emp_vec, emp_vec, c_r_vec, m_pay_vec, tol) {
     .Call('_hmod_fit_r', PACKAGE = 'hmod', a, b, base_emp_vec, emp_vec, c_r_vec, m_pay_vec, tol)
-}
-
-gini <- function(x, corr = FALSE) {
-    .Call('_hmod_gini', PACKAGE = 'hmod', x, corr)
 }
 
 grc <- function(n_subordinates) {
@@ -85,10 +77,6 @@ k_function <- function(pay, power, k_parameters) {
     .Call('_hmod_k_function', PACKAGE = 'hmod', pay, power, k_parameters)
 }
 
-lorenz <- function(pay, lower, upper, n_bins) {
-    .Call('_hmod_lorenz', PACKAGE = 'hmod', pay, lower, upper, n_bins)
-}
-
 manager_frac <- function(firm_vec, span, manage_rank_thresh) {
     .Call('_hmod_manager_frac', PACKAGE = 'hmod', firm_vec, span, manage_rank_thresh)
 }
@@ -107,17 +95,5 @@ project <- function(a, c, theta, e) {
 
 rpld <- function(n, xmin, alpha, discrete_max = 10000L, xmax = 0L, ordered = FALSE) {
     .Call('_hmod_rpld', PACKAGE = 'hmod', n, xmin, alpha, discrete_max, xmax, ordered)
-}
-
-top_frac <- function(pay, frac) {
-    .Call('_hmod_top_frac', PACKAGE = 'hmod', pay, frac)
-}
-
-top_k <- function(sort_vec, data_vec, k) {
-    .Call('_hmod_top_k', PACKAGE = 'hmod', sort_vec, data_vec, k)
-}
-
-weighted_mean <- function(x, weights) {
-    .Call('_hmod_weighted_mean', PACKAGE = 'hmod', x, weights)
 }
 

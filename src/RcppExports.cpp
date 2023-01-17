@@ -77,19 +77,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// boot_mean
-arma::vec boot_mean(arma::vec x, double conf, double n_boot);
-RcppExport SEXP _hmod_boot_mean(SEXP xSEXP, SEXP confSEXP, SEXP n_bootSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< arma::vec >::type x(xSEXP);
-    Rcpp::traits::input_parameter< double >::type conf(confSEXP);
-    Rcpp::traits::input_parameter< double >::type n_boot(n_bootSEXP);
-    rcpp_result_gen = Rcpp::wrap(boot_mean(x, conf, n_boot));
-    return rcpp_result_gen;
-END_RCPP
-}
 // boot_sigma
 double boot_sigma(arma::vec x);
 RcppExport SEXP _hmod_boot_sigma(SEXP xSEXP) {
@@ -193,18 +180,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// gini
-double gini(arma::vec x, bool corr);
-RcppExport SEXP _hmod_gini(SEXP xSEXP, SEXP corrSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< arma::vec >::type x(xSEXP);
-    Rcpp::traits::input_parameter< bool >::type corr(corrSEXP);
-    rcpp_result_gen = Rcpp::wrap(gini(x, corr));
-    return rcpp_result_gen;
-END_RCPP
-}
 // grc
 double grc(arma::vec n_subordinates);
 RcppExport SEXP _hmod_grc(SEXP n_subordinatesSEXP) {
@@ -299,20 +274,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// lorenz
-arma::mat lorenz(arma::vec pay, double lower, double upper, int n_bins);
-RcppExport SEXP _hmod_lorenz(SEXP paySEXP, SEXP lowerSEXP, SEXP upperSEXP, SEXP n_binsSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< arma::vec >::type pay(paySEXP);
-    Rcpp::traits::input_parameter< double >::type lower(lowerSEXP);
-    Rcpp::traits::input_parameter< double >::type upper(upperSEXP);
-    Rcpp::traits::input_parameter< int >::type n_bins(n_binsSEXP);
-    rcpp_result_gen = Rcpp::wrap(lorenz(pay, lower, upper, n_bins));
-    return rcpp_result_gen;
-END_RCPP
-}
 // manager_frac
 double manager_frac(const arma::vec& firm_vec, double span, int manage_rank_thresh);
 RcppExport SEXP _hmod_manager_frac(SEXP firm_vecSEXP, SEXP spanSEXP, SEXP manage_rank_threshSEXP) {
@@ -396,43 +357,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// top_frac
-double top_frac(arma::vec pay, double frac);
-RcppExport SEXP _hmod_top_frac(SEXP paySEXP, SEXP fracSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< arma::vec >::type pay(paySEXP);
-    Rcpp::traits::input_parameter< double >::type frac(fracSEXP);
-    rcpp_result_gen = Rcpp::wrap(top_frac(pay, frac));
-    return rcpp_result_gen;
-END_RCPP
-}
-// top_k
-arma::rowvec top_k(const arma::vec& sort_vec, const arma::vec& data_vec, int k);
-RcppExport SEXP _hmod_top_k(SEXP sort_vecSEXP, SEXP data_vecSEXP, SEXP kSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const arma::vec& >::type sort_vec(sort_vecSEXP);
-    Rcpp::traits::input_parameter< const arma::vec& >::type data_vec(data_vecSEXP);
-    Rcpp::traits::input_parameter< int >::type k(kSEXP);
-    rcpp_result_gen = Rcpp::wrap(top_k(sort_vec, data_vec, k));
-    return rcpp_result_gen;
-END_RCPP
-}
-// weighted_mean
-double weighted_mean(arma::vec x, arma::vec weights);
-RcppExport SEXP _hmod_weighted_mean(SEXP xSEXP, SEXP weightsSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< arma::vec >::type x(xSEXP);
-    Rcpp::traits::input_parameter< arma::vec >::type weights(weightsSEXP);
-    rcpp_result_gen = Rcpp::wrap(weighted_mean(x, weights));
-    return rcpp_result_gen;
-END_RCPP
-}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_hmod_base_fit", (DL_FUNC) &_hmod_base_fit, 3},
@@ -440,7 +364,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_hmod_base_pay_sim_beta", (DL_FUNC) &_hmod_base_pay_sim_beta, 3},
     {"_hmod_beta_sim_linear", (DL_FUNC) &_hmod_beta_sim_linear, 4},
     {"_hmod_beta_sim_log", (DL_FUNC) &_hmod_beta_sim_log, 4},
-    {"_hmod_boot_mean", (DL_FUNC) &_hmod_boot_mean, 3},
     {"_hmod_boot_sigma", (DL_FUNC) &_hmod_boot_sigma, 1},
     {"_hmod_boot_span", (DL_FUNC) &_hmod_boot_span, 2},
     {"_hmod_ceo_pay_ratio", (DL_FUNC) &_hmod_ceo_pay_ratio, 6},
@@ -448,7 +371,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_hmod_firm_mean_pay", (DL_FUNC) &_hmod_firm_mean_pay, 6},
     {"_hmod_fit_beta", (DL_FUNC) &_hmod_fit_beta, 9},
     {"_hmod_fit_r", (DL_FUNC) &_hmod_fit_r, 7},
-    {"_hmod_gini", (DL_FUNC) &_hmod_gini, 2},
     {"_hmod_grc", (DL_FUNC) &_hmod_grc, 1},
     {"_hmod_grid_plot_beta", (DL_FUNC) &_hmod_grid_plot_beta, 8},
     {"_hmod_grid_plot_r", (DL_FUNC) &_hmod_grid_plot_r, 7},
@@ -456,15 +378,11 @@ static const R_CallMethodDef CallEntries[] = {
     {"_hmod_hierarchy", (DL_FUNC) &_hmod_hierarchy, 2},
     {"_hmod_hp_mod", (DL_FUNC) &_hmod_hp_mod, 2},
     {"_hmod_k_function", (DL_FUNC) &_hmod_k_function, 3},
-    {"_hmod_lorenz", (DL_FUNC) &_hmod_lorenz, 4},
     {"_hmod_manager_frac", (DL_FUNC) &_hmod_manager_frac, 3},
     {"_hmod_model_beta", (DL_FUNC) &_hmod_model_beta, 10},
     {"_hmod_model_r", (DL_FUNC) &_hmod_model_r, 10},
     {"_hmod_project", (DL_FUNC) &_hmod_project, 4},
     {"_hmod_rpld", (DL_FUNC) &_hmod_rpld, 6},
-    {"_hmod_top_frac", (DL_FUNC) &_hmod_top_frac, 2},
-    {"_hmod_top_k", (DL_FUNC) &_hmod_top_k, 3},
-    {"_hmod_weighted_mean", (DL_FUNC) &_hmod_weighted_mean, 2},
     {NULL, NULL, 0}
 };
 
