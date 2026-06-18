@@ -93,6 +93,10 @@ project <- function(a, c, theta, e) {
     .Call('_hmod_project', PACKAGE = 'hmod', a, c, theta, e)
 }
 
+rplc <- function(n, xmin, alpha) {
+    .Call('_hmod_rplc', PACKAGE = 'hmod', n, xmin, alpha)
+}
+
 rpld <- function(n, xmin, alpha, discrete_max = 10000L, xmax = 0L, ordered = FALSE) {
     .Call('_hmod_rpld', PACKAGE = 'hmod', n, xmin, alpha, discrete_max, xmax, ordered)
 }

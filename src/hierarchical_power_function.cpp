@@ -21,9 +21,9 @@ arma::vec hierarchical_power( arma::uvec hierarchy_vec )
     //loop over levels in firm
     for (int i = 0; i < maximum_rank; ++i){
 
-        mean_hierarchical_power[i] = n_subordinate / hierarchy_vec[i] + 1;
+	mean_hierarchical_power[i] = n_subordinate / hierarchy_vec[i] + 1;
 
-        n_subordinate = n_subordinate + hierarchy_vec[i];
+	n_subordinate = n_subordinate + hierarchy_vec[i];
 
     }
 

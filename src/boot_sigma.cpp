@@ -2,8 +2,6 @@
 #include <boost/math/special_functions/erf.hpp>
 
 
-
-
 // boot_sigma is a function to bootstrap sample the vector x, a vector
 // of gini indexes of pay inequality within different hierarchical levels of
 // case study firms. The function first samples (with replacement) from this vector
@@ -14,7 +12,6 @@
 
 // [[Rcpp::depends(RcppArmadillo)]]
 // [[Rcpp::depends(BH)]]
-// [[Rcpp::plugins(cpp11)]]
 // [[Rcpp::export]]
 
 

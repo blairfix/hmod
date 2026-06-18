@@ -32,21 +32,21 @@
 
 
 // [[Rcpp::depends(RcppArmadillo)]]
-// [[Rcpp::plugins(cpp11)]]
 // [[Rcpp::export]]
 
 
-arma::mat model_beta(double a,
-                    double b,
-                    const arma::vec &base_emp_vec,
-                    const arma::uvec &emp_vec,
-                    const arma::vec &base_pay_vec,
-                    const arma::vec &beta_vec,
-                    double sigma,
-                    bool firm_size = false,
-                    bool hierarchy = false,
-                    bool power = false
-                    )
+arma::mat model_beta(
+	double a,
+	double b,
+	const arma::vec &base_emp_vec,
+	const arma::uvec &emp_vec,
+	const arma::vec &base_pay_vec,
+	const arma::vec &beta_vec,
+	double sigma,
+	bool firm_size = false,
+	bool hierarchy = false,
+	bool power = false
+	)
 
 {
 
@@ -63,27 +63,27 @@ arma::mat model_beta(double a,
     int lnorm_index = 0;
 
 
-        // firm size export
-        if( firm_size == true ){
-            firm_size_col = n_cols;
-            //names[n_cols] = "firm_size";
-            n_cols++;
-        }
+    // firm size export
+    if( firm_size == true ){
+	firm_size_col = n_cols;
+	//names[n_cols] = "firm_size";
+	n_cols++;
+    }
 
-        // hierarchical levels export
-        if( hierarchy == true ){
-            hier_col = n_cols;
-            //names[n_cols] = "h_level";
-            n_cols++;
-        }
+    // hierarchical levels export
+    if( hierarchy == true ){
+	hier_col = n_cols;
+	//names[n_cols] = "h_level";
+	n_cols++;
+    }
 
 
-        // power export
-        if( power == true ){
-            power_col = n_cols;
-            //names[n_cols] = "power";
-            n_cols++;
-        }
+    // power export
+    if( power == true ){
+	power_col = n_cols;
+	//names[n_cols] = "power";
+	n_cols++;
+    }
 
 
     // output matrix
@@ -116,7 +116,7 @@ arma::mat model_beta(double a,
     arma::vec lnorm(n_samp);
 
     for(int i = 0; i < n_samp; ++i) {
-        lnorm[i] =  d(gen);
+	lnorm[i] =  d(gen);
     }
 
 
@@ -125,81 +125,81 @@ arma::mat model_beta(double a,
     // loop over firms
     for(int firm_index = 0; firm_index < n_firm; firm_index++){
 
-        // parameters for the firm
-        double base = base_emp_vec[firm_index];
-        double emp = emp_vec[firm_index];
-        double beta = beta_vec[firm_index];
-        double base_pay = base_pay_vec[firm_index];
+	// parameters for the firm
+	double base = base_emp_vec[firm_index];
+	double emp = emp_vec[firm_index];
+	double beta = beta_vec[firm_index];
+	double base_pay = base_pay_vec[firm_index];
 
 
-        // firm employment by hierarchical rank and hierarchical power by rank
-        arma::uvec hierarchy_vec = hierarchy_func(emp, base, sprod);
-        int maximum = hierarchy_vec[19];
-        arma::vec hierarchal_power_vec = hierarchical_power_function(hierarchy_vec);
+	// firm employment by hierarchical rank and hierarchical power by rank
+	arma::uvec hierarchy_vec = hierarchy_func(emp, base, sprod);
+	int maximum = hierarchy_vec[19];
+	arma::vec hierarchal_power_vec = hierarchical_power_function(hierarchy_vec);
 
 
-        // income
-         //loop over hierarchical levels
-        for (int i = 0; i < maximum; ++i){
+	// income
+	//loop over hierarchical levels
+	for (int i = 0; i < maximum; ++i){
 
-            double mean_power = hierarchal_power_vec[i];
+	    double mean_power = hierarchal_power_vec[i];
 
-            double mean_pay = base_pay*std::pow( mean_power, beta );
+	    double mean_pay = base_pay*std::pow( mean_power, beta );
 
-            // loop over individuals
-            for (int j = 0; j < hierarchy_vec[i]; ++j){
+	    // loop over individuals
+	    for (int j = 0; j < hierarchy_vec[i]; ++j){
 
-                // check if at end of lnorm sample
-                if(lnorm_index == n_samp){lnorm_index = 0;}
+		// check if at end of lnorm sample
+		if(lnorm_index == n_samp){lnorm_index = 0;}
 
-                // individual income
-                output(p_index, pay_col) = mean_pay*lnorm[lnorm_index];
+		// individual income
+		output(p_index, pay_col) = mean_pay*lnorm[lnorm_index];
 
-                lnorm_index++;
-                p_index++;
+		lnorm_index++;
+		p_index++;
 
-                // optional output of hierarchical power
-                if(power == true){
-                    output(power_index, power_col) = mean_power;
-                    power_index++;
-                }
-            }
-        } // end loop over levels
-
-
-
-        //////////////////////////////////////////////////////////////////////////////
-        // optional calculations
-
-        // firm size
-        if( firm_size == true){
-            for(int i = 0; i < emp; ++i){
-                output(firm_size_index, firm_size_col) = emp;
-                firm_size_index++;
-            }
-        }
+		// optional output of hierarchical power
+		if(power == true){
+		    output(power_index, power_col) = mean_power;
+		    power_index++;
+		}
+	    }
+	} // end loop over levels
 
 
 
-        // hierarchical levels
-        if(hierarchy == true){
-            //loop over levels
-            for (int i = 0; i < maximum; ++i){
+	//////////////////////////////////////////////////////////////////////////////
+	// optional calculations
 
-                // loop over individuals
-                for (int j = 0; j < hierarchy_vec[i]; ++j){
-                    output(hier_index, hier_col) = i + 1;
-                    hier_index++;
-                }
-            } // end loop over levels
-        } // end if
+	// firm size
+	if( firm_size == true){
+	    for(int i = 0; i < emp; ++i){
+		output(firm_size_index, firm_size_col) = emp;
+		firm_size_index++;
+	    }
+	}
+
+
+
+	// hierarchical levels
+	if(hierarchy == true){
+	    //loop over levels
+	    for (int i = 0; i < maximum; ++i){
+
+		// loop over individuals
+		for (int j = 0; j < hierarchy_vec[i]; ++j){
+		    output(hier_index, hier_col) = i + 1;
+		    hier_index++;
+		}
+	    } // end loop over levels
+	} // end if
 
 
 
     } // end loop over firms
 
 
-  return output;
+    return output;
 }
 
 

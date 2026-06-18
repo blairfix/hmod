@@ -35,7 +35,6 @@
 
 
 // [[Rcpp::depends(RcppArmadillo)]]
-// [[Rcpp::plugins(cpp11)]]
 // [[Rcpp::export]]
 
 
@@ -63,37 +62,37 @@ arma::vec k_function(arma::vec pay, arma::vec power, arma::mat k_parameters)
 
     for(int i = 0; i < n_people; ++i){
 
-        // capitalist fraction of income
-        // linear function of hierarchical power
-        // defined by k_slope and k_intercept
-        double k_frac =  k_slope*std::log( power[i] ) + k_intercept;
+	// capitalist fraction of income
+	// linear function of hierarchical power
+	// defined by k_slope and k_intercept
+	double k_frac =  k_slope*std::log( power[i] ) + k_intercept;
 
 
-        // add dispersion to k_frac,
-        // coefficient of variation is a power-law function of hierarchical power
-        // defined by cov_slope and cov_intercept
-        double cov =  cov_intercept*std::pow( power[i], cov_slope);
-        double sd = abs(cov*k_frac);
+	// add dispersion to k_frac,
+	// coefficient of variation is a power-law function of hierarchical power
+	// defined by cov_slope and cov_intercept
+	double cov =  cov_intercept*std::pow( power[i], cov_slope);
+	double sd = abs(cov*k_frac);
 
-        // generate truncated normal distribution, max = 1
-        double dispersion_max = 1 - k_frac;
-        double dispersion = 2;
+	// generate truncated normal distribution, max = 1
+	double dispersion_max = 1 - k_frac;
+	double dispersion = 2;
 
-        while( dispersion > dispersion_max){
-            dispersion = sd*distribution(generator);
-        }
+	while( dispersion > dispersion_max){
+	    dispersion = sd*distribution(generator);
+	}
 
-        k_frac = k_frac + dispersion;
-
-
-            // fix k_frac values less than 0 or greater than 1
-            if(k_frac < 0){
-                k_frac = 0;
-            }
+	k_frac = k_frac + dispersion;
 
 
-        // total capitalist income
-        k_income[i] = pay[i] * k_frac;
+	// fix k_frac values less than 0 or greater than 1
+	if(k_frac < 0){
+	    k_frac = 0;
+	}
+
+
+	// total capitalist income
+	k_income[i] = pay[i] * k_frac;
 
     }
 

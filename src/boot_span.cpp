@@ -7,7 +7,6 @@
 // a and b.
 
 // [[Rcpp::depends(RcppArmadillo)]]
-// [[Rcpp::plugins(cpp11)]]
 // [[Rcpp::export]]
 
 arma::vec  boot_span(arma::vec h, arma::vec s)

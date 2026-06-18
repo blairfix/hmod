@@ -341,6 +341,19 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// rplc
+arma::vec rplc(int n, double xmin, double alpha);
+RcppExport SEXP _hmod_rplc(SEXP nSEXP, SEXP xminSEXP, SEXP alphaSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< int >::type n(nSEXP);
+    Rcpp::traits::input_parameter< double >::type xmin(xminSEXP);
+    Rcpp::traits::input_parameter< double >::type alpha(alphaSEXP);
+    rcpp_result_gen = Rcpp::wrap(rplc(n, xmin, alpha));
+    return rcpp_result_gen;
+END_RCPP
+}
 // rpld
 Rcpp::NumericVector rpld(int n, int xmin, double alpha, int discrete_max, int xmax, bool ordered);
 RcppExport SEXP _hmod_rpld(SEXP nSEXP, SEXP xminSEXP, SEXP alphaSEXP, SEXP discrete_maxSEXP, SEXP xmaxSEXP, SEXP orderedSEXP) {
@@ -382,6 +395,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_hmod_model_beta", (DL_FUNC) &_hmod_model_beta, 10},
     {"_hmod_model_r", (DL_FUNC) &_hmod_model_r, 10},
     {"_hmod_project", (DL_FUNC) &_hmod_project, 4},
+    {"_hmod_rplc", (DL_FUNC) &_hmod_rplc, 3},
     {"_hmod_rpld", (DL_FUNC) &_hmod_rpld, 6},
     {NULL, NULL, 0}
 };

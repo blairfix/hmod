@@ -26,19 +26,18 @@
 
 
 // [[Rcpp::depends(RcppArmadillo)]]
-// [[Rcpp::plugins(cpp11)]]
 // [[Rcpp::export]]
 
 
-
-arma::mat   fit_r  (double a,
-                        double b,
-                        const arma::vec &base_emp_vec,
-                        const arma::uvec &emp_vec,
-                        const arma::vec &c_r_vec,
-                        const arma::vec &m_pay_vec,
-                        double tol
-                        )
+arma::mat   fit_r  (
+	double a,
+	double b,
+	const arma::vec &base_emp_vec,
+	const arma::uvec &emp_vec,
+	const arma::vec &c_r_vec,
+	const arma::vec &m_pay_vec,
+	double tol
+	)
 
 {
 
@@ -54,107 +53,107 @@ arma::mat   fit_r  (double a,
 
     for(int firm_index = 0; firm_index < n_firm; firm_index++){
 
-        double base = base_emp_vec[firm_index];
-        double c_r = c_r_vec[firm_index];
-        int emp = emp_vec[firm_index];
+	double base = base_emp_vec[firm_index];
+	double c_r = c_r_vec[firm_index];
+	int emp = emp_vec[firm_index];
 
-        // employment model
-        arma::uvec h = hierarchy_func(emp, base, sprod); // get vector of employment by hierarchical level
-        int maximum = h[19]; // get index of maximum level
-
-
-        // *********************************************************************
-        // pay scaling (r) optimization using bisection method
-
-            // r is a vector of pay scaling parameters
-            // r[0] = left bound
-            // r[1] = right bound
-            // r[2] =  current test value
-            arma::vec r(3);
-            r[0] = 1.0; // set initial left bound
-            r[1] = 1.7; // set initial right bounds
-
-            arma::vec error(3);     // contain error corresponding to each value in r vector
-            double m_pay_model;     // estimate for firm mean pay
-            int best_error = 100;   // set initial model error to high number to enter while loop
-            int while_counter = 1;  // number of times through the while loop
+	// employment model
+	arma::uvec h = hierarchy_func(emp, base, sprod); // get vector of employment by hierarchical level
+	int maximum = h[19]; // get index of maximum level
 
 
-        // test r value until error under tolerance or max iterations exceeded
-        while (best_error > tol && while_counter < 50 ){
+	// *********************************************************************
+	// pay scaling (r) optimization using bisection method
 
-            // if first time through while loop, we run model
-            // for left and right bounds, r[0] and r[1]
-            // all other times we test only current guess, r[2]
-            // r_start and r_stop determine what values are tested
+	// r is a vector of pay scaling parameters
+	// r[0] = left bound
+	// r[1] = right bound
+	// r[2] =  current test value
+	arma::vec r(3);
+	r[0] = 1.0; // set initial left bound
+	r[1] = 1.7; // set initial right bounds
 
-                int r_start;
-                int r_stop;
-
-                if(while_counter == 1){
-                    r_start = 0;
-                    r_stop = 2;
-                } else {
-                    r_start = 2;
-                    r_stop = 3;
-                }
+	arma::vec error(3);     // contain error corresponding to each value in r vector
+	double m_pay_model;     // estimate for firm mean pay
+	int best_error = 100;   // set initial model error to high number to enter while loop
+	int while_counter = 1;  // number of times through the while loop
 
 
-            // loop over r to get error for appropriate bounds
-            for (int r_index = r_start; r_index < r_stop; r_index++){
+	// test r value until error under tolerance or max iterations exceeded
+	while (best_error > tol && while_counter < 50 ){
 
-                // get mean pay of each level
-                arma::vec p(maximum);
+	    // if first time through while loop, we run model
+	    // for left and right bounds, r[0] and r[1]
+	    // all other times we test only current guess, r[2]
+	    // r_start and r_stop determine what values are tested
 
-                for (int j = 0; j < maximum; j++){
-                  p[j] = pow( r[r_index], e_pay[j]) ;
-                }
+	    int r_start;
+	    int r_stop;
 
-
-                // calculate firm mean pay (weighted mean of p by h vectors)
-                double total = 0;
-                double total_w = 0;
-
-                for(int i = 0; i < maximum; ++i){
-                  total += p[i] * h[i];
-                  total_w += h[i];
-                }
-
-                m_pay_model =  total / total_w;               // mean pay of model
-                double  ceo_ratio = p[maximum-1]/m_pay_model; // get model ceo to employee pay ratio
-                error[r_index] =  c_r - ceo_ratio;            // model error
-
-            } // end for r loop
+	    if(while_counter == 1){
+		r_start = 0;
+		r_stop = 2;
+	    } else {
+		r_start = 2;
+		r_stop = 3;
+	    }
 
 
+	    // loop over r to get error for appropriate bounds
+	    for (int r_index = r_start; r_index < r_stop; r_index++){
 
-            ///////////////////////////////////////////////////////////////////////
-            // bisection decision
-            // if not first loop ... get new bounds
-            // first check if left bound and test value are opposite signs
-            // if yes ... r[2] is new right bound
-            // if no ... r[2] is new left bound
+		// get mean pay of each level
+		arma::vec p(maximum);
 
-                if (while_counter > 1){
-                    if( error[0]*error[2] < 0.0 ){
-                      r[1] = r[2];
-                      error[1] = error[2];
-                    }
-                    else  {
-                      r[0] = r[2];
-                      error[0] = error[2];
-                    }
-                }
+		for (int j = 0; j < maximum; j++){
+		    p[j] = pow( r[r_index], e_pay[j]) ;
+		}
 
-                r[2] = (r[0] +r[1])/2;             // get new guess value
-                best_error = std::abs(error[1]);   // current best error = error at midpoint
-                while_counter++;
 
-         }
+		// calculate firm mean pay (weighted mean of p by h vectors)
+		double total = 0;
+		double total_w = 0;
 
-    output(firm_index, 0) = r[1];                                 // fitted pay scaling parameter
-    output(firm_index, 1) = best_error;                           // model error
-    output(firm_index , 2) = m_pay_vec[firm_index] / m_pay_model; // firm level base pay
+		for(int i = 0; i < maximum; ++i){
+		    total += p[i] * h[i];
+		    total_w += h[i];
+		}
+
+		m_pay_model =  total / total_w;               // mean pay of model
+		double  ceo_ratio = p[maximum-1]/m_pay_model; // get model ceo to employee pay ratio
+		error[r_index] =  c_r - ceo_ratio;            // model error
+
+	    } // end for r loop
+
+
+
+	    ///////////////////////////////////////////////////////////////////////
+	    // bisection decision
+	    // if not first loop ... get new bounds
+	    // first check if left bound and test value are opposite signs
+	    // if yes ... r[2] is new right bound
+	    // if no ... r[2] is new left bound
+
+	    if (while_counter > 1){
+		if( error[0]*error[2] < 0.0 ){
+		    r[1] = r[2];
+		    error[1] = error[2];
+		}
+		else  {
+		    r[0] = r[2];
+		    error[0] = error[2];
+		}
+	    }
+
+	    r[2] = (r[0] +r[1])/2;             // get new guess value
+	    best_error = std::abs(error[1]);   // current best error = error at midpoint
+	    while_counter++;
+
+	}
+
+	output(firm_index, 0) = r[1];                                 // fitted pay scaling parameter
+	output(firm_index, 1) = best_error;                           // model error
+	output(firm_index , 2) = m_pay_vec[firm_index] / m_pay_model; // firm level base pay
 
     }
 

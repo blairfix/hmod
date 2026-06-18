@@ -17,18 +17,17 @@
 
 
 // [[Rcpp::depends(RcppArmadillo)]]
-// [[Rcpp::plugins(cpp11)]]
 // [[Rcpp::export]]
 
 
-
-arma::vec base_fit( double a,
-                    double b,
-                    const arma::uvec &emp_vec)
+arma::vec base_fit(
+	double a,
+	double b,
+	const arma::uvec &emp_vec
+	)
 {
 
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////
     // initialize and fill trial base vector
     int n_trial = 10000; // length of base_trial
     int linear = 2000; // number of linear steps in base_trial
@@ -38,7 +37,7 @@ arma::vec base_fit( double a,
 
     // fill linear steps in base_trial
     for (int i = 1; i < linear; ++i){
-        base_trial[i] = base_trial[i-1] + 0.05;
+	base_trial[i] = base_trial[i-1] + 0.05;
     }
 
     // check max of emp vec to inform max of base_trial vector
@@ -52,7 +51,7 @@ arma::vec base_fit( double a,
 
     // fill the rest of base_trial with exponential sequence
     for (int i = linear; i < n_trial; ++i){
-        base_trial[i] = base_trial[i-1]*r;
+	base_trial[i] = base_trial[i-1]*r;
     }
 
 
@@ -69,24 +68,24 @@ arma::vec base_fit( double a,
 
     for(int b_index = 0; b_index < n_trial; ++b_index){
 
-        // base employment
-        double base = base_trial[b_index];
+	// base employment
+	double base = base_trial[b_index];
 
-        // hierarchical employment vector
-        arma::uvec h(20);
+	// hierarchical employment vector
+	arma::uvec h(20);
 
-        // set base level
-        h[0] = base;
+	// set base level
+	h[0] = base;
 
-        // correct to allow firm size of 1
-        if( h[0] < 1  ){ h[0] = 1 ;}
+	// correct to allow firm size of 1
+	if( h[0] < 1  ){ h[0] = 1 ;}
 
-        // fill hierarchical levels
-        for (int i = 1; i < 20; ++i){
-            h[i] = base / sprod[i-1];
-        }
+	// fill hierarchical levels
+	for (int i = 1; i < 20; ++i){
+	    h[i] = base / sprod[i-1];
+	}
 
-        emp_trial[b_index] = arma::sum(h);
+	emp_trial[b_index] = arma::sum(h);
 
     }
 
@@ -116,6 +115,6 @@ arma::vec base_fit( double a,
 
 
 
-  return base_predict_vec;
+    return base_predict_vec;
 }
 

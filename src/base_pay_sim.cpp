@@ -4,7 +4,6 @@
 #include <random>
 
 
-
 // The base_pay_sim function creates a simulated distribution of firm pay in the
 // base hierarchical level. It fits a gamma distribution to the vector of pay data
 // contained in "base_pay_empirical". In the context of this model, base_pay_empirical is
@@ -14,11 +13,12 @@
 
 // [[Rcpp::depends(BH)]]
 // [[Rcpp::depends(RcppArmadillo)]]
-// [[Rcpp::plugins(cpp11)]]
 // [[Rcpp::export]]
 
-arma::vec base_pay_sim( const arma::vec &base_pay_empirical,
-                        int n_sim)
+arma::vec base_pay_sim(
+	const arma::vec &base_pay_empirical,
+	int n_sim
+	)
 {
 
     int n = base_pay_empirical.size(); // number of firms in emprical sample
@@ -29,8 +29,8 @@ arma::vec base_pay_sim( const arma::vec &base_pay_empirical,
 
 
     for(int i = 0; i < n; ++i){
-        sum = sum + base_pay_empirical[i];
-        sum_log = sum_log + log(base_pay_empirical[i]);
+	sum = sum + base_pay_empirical[i];
+	sum_log = sum_log + log(base_pay_empirical[i]);
     }
 
     double s = log(sum/n) - sum_log/n;
@@ -42,9 +42,9 @@ arma::vec base_pay_sim( const arma::vec &base_pay_empirical,
     // Newton method to estimate k
     while(error > 0.00001){
 
-        k_new = k -   (log(k) - boost::math::digamma(k) -s) / (1/k  - boost::math::polygamma(1, k) )  ;
-        error = abs(k_new - k);
-        k = k_new;
+	k_new = k -   (log(k) - boost::math::digamma(k) -s) / (1/k  - boost::math::polygamma(1, k) )  ;
+	error = abs(k_new - k);
+	k = k_new;
 
     }
 
@@ -59,7 +59,7 @@ arma::vec base_pay_sim( const arma::vec &base_pay_empirical,
     std::gamma_distribution<double> distribution(k, theta);
 
     for(int i = 0; i < n_sim; ++i){
-        x[i] = distribution(gen);
+	x[i] = distribution(gen);
     }
 
 

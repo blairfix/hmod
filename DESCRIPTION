@@ -3,7 +3,7 @@ Type: Package
 Title: Rcpp functions for hierarchy model
 Version: 0.1.0
 Author: Blair Fix
-Maintainer: <blairfix@gmail.com>
+Maintainer: <blairfix@fastmail.com>
 Description: Tools for modeling and analyzing hierarchies. 
 Depends: R (>= 3.0.2), RcppArmadillo (>= 0.7.960.1.1), RcppZiggurat (>= 0.1.3), data.table (>= 1.10.4)
 License: GPL

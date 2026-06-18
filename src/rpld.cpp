@@ -30,38 +30,38 @@
 
 
 // [[Rcpp::depends(BH)]]
-// [[Rcpp::plugins(cpp11)]]
 // [[Rcpp::export]]
 
-Rcpp::NumericVector rpld(  int n,
-                           int xmin,
-                           double alpha,
-                           int discrete_max = 10000,
-                           int xmax = 0,
-                           bool ordered = false
-                        )
+Rcpp::NumericVector rpld( 
+	int n,
+	int xmin,
+	double alpha,
+	int discrete_max = 10000,
+	int xmax = 0,
+	bool ordered = false
+	)
 
 {
     // check that parameters are in valid range
     if (xmin < 1) {
-        throw std::range_error("xmin must be greater than or equal to 1");
+	throw std::range_error("xmin must be greater than or equal to 1");
     }
 
     if (alpha <= 1) {
-        throw std::range_error("alpha must be greater than 1");
+	throw std::range_error("alpha must be greater than 1");
     }
 
     if (discrete_max < 1) {
-        throw std::range_error("discrete_max must be greater than or equal to 1");
+	throw std::range_error("discrete_max must be greater than or equal to 1");
     }
 
 
     if (xmax < 1 & xmax != 0 & xmax > xmin) {
-        throw std::range_error("xmax must be greater than 1");
+	throw std::range_error("xmax must be greater than 1");
     }
 
     if (xmax <= xmin & xmax != 0) {
-        throw std::range_error("xmax must be greater than xmin");
+	throw std::range_error("xmax must be greater than xmin");
     }
 
 
@@ -72,9 +72,9 @@ Rcpp::NumericVector rpld(  int n,
     // set upper limit of uniform dist
     double lim;
     if (xmax > xmin){
-        lim =  1 -  std::pow( ( xmax - 0.5 )/( xmin - 0.5 ), 1 - alpha    ) ;
+	lim =  1 -  std::pow( ( xmax - 0.5 )/( xmin - 0.5 ), 1 - alpha    ) ;
     } else {
-        lim = 1.0;
+	lim = 1.0;
     }
 
 
@@ -85,93 +85,93 @@ Rcpp::NumericVector rpld(  int n,
     // check for low descrete_max
     if( discrete_max > 0.5 ){
 
-        // define normalization constant
-        double constant = boost::math::zeta(alpha);
+	// define normalization constant
+	double constant = boost::math::zeta(alpha);
 
-        if (xmin > 1){
-            for(int i = 1; i < xmin; i++ ){
-                constant = constant - std::pow(i, -alpha);
-            }
-        }
-
-
-        // make cumulative distribution function up to discrete_max (CDF)
-        Rcpp::NumericVector x_alpha(discrete_max);
-        x_alpha[0] = (constant - std::pow(xmin, -alpha))/constant;
-
-        Rcpp::NumericVector CDF (discrete_max + 1);
-        CDF[1] =  1 - (constant -  std::pow(xmin, -alpha) ) /constant;
+	if (xmin > 1){
+	    for(int i = 1; i < xmin; i++ ){
+		constant = constant - std::pow(i, -alpha);
+	    }
+	}
 
 
-        for(int i = 1; i < discrete_max; i++){
+	// make cumulative distribution function up to discrete_max (CDF)
+	Rcpp::NumericVector x_alpha(discrete_max);
+	x_alpha[0] = (constant - std::pow(xmin, -alpha))/constant;
 
-            x_alpha[i] = x_alpha[i-1] -  std::pow(xmin + i, -alpha)/constant; // cumulative sum
-            CDF[i+1] = 1 - x_alpha[i];
-
-        }
-
-
-        // sort u smallest to largest
-        std::sort(u.begin(), u.end());
+	Rcpp::NumericVector CDF (discrete_max + 1);
+	CDF[1] =  1 - (constant -  std::pow(xmin, -alpha) ) /constant;
 
 
-        ///////////////////////////////////////////////////////////////////////////////////////////////
-        // discrete power law distribution
-        // put u in correct CDF bin and get corresponding x value
+	for(int i = 1; i < discrete_max; i++){
+
+	    x_alpha[i] = x_alpha[i-1] -  std::pow(xmin + i, -alpha)/constant; // cumulative sum
+	    CDF[i+1] = 1 - x_alpha[i];
+
+	}
 
 
-        int x = 1;
-
-        // loop through sorted uniform distribution
-        for(int i = 0; i < n; i++){
-
-            if(x < discrete_max){
-
-                if( u[i] < CDF[x] ){            // test if u below cdf and get corresponding x value
-
-                    rng[i] = x + xmin - 1;
-
-                } else  {
-
-                    while( CDF[x] <= u[i]   && x < discrete_max ){  // advance x until CDF[x] < u[i]
-                        x++;
-                    }
-
-                    if( CDF[x] > u[i]   ){
-                        rng[i] = x + xmin - 1;
-                    }
-
-                }
-            }
-
-        }
+	// sort u smallest to largest
+	std::sort(u.begin(), u.end());
 
 
-        // from end of rng,  search and replace zeros with continuous power law approximation
-        int i = n-1;
-        while(rng[i] == 0){
-            rng[i] = std::floor( (xmin - 0.5) * std::pow(1 - u[i], -1/(alpha - 1) ) + 0.5);
-            i--;
-        }
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	// discrete power law distribution
+	// put u in correct CDF bin and get corresponding x value
 
-        // shuffle if ordered = FALSE
-        if(ordered == false){
-            std::shuffle( rng.begin(), rng.end(), std::default_random_engine() );
-        }
+
+	int x = 1;
+
+	// loop through sorted uniform distribution
+	for(int i = 0; i < n; i++){
+
+	    if(x < discrete_max){
+
+		if( u[i] < CDF[x] ){            // test if u below cdf and get corresponding x value
+
+		    rng[i] = x + xmin - 1;
+
+		} else  {
+
+		    while( CDF[x] <= u[i]   && x < discrete_max ){  // advance x until CDF[x] < u[i]
+			x++;
+		    }
+
+		    if( CDF[x] > u[i]   ){
+			rng[i] = x + xmin - 1;
+		    }
+
+		}
+	    }
+
+	}
+
+
+	// from end of rng,  search and replace zeros with continuous power law approximation
+	int i = n-1;
+	while(rng[i] == 0){
+	    rng[i] = std::floor( (xmin - 0.5) * std::pow(1 - u[i], -1/(alpha - 1) ) + 0.5);
+	    i--;
+	}
+
+	// shuffle if ordered = FALSE
+	if(ordered == false){
+	    std::shuffle( rng.begin(), rng.end(), std::default_random_engine() );
+	}
 
 
     } else {
 
-        //////////////////////////////////////////////////////////////
-        // generate rng using rounding method from continuous power law distribution
-        for(int i = 0; i <n; i++){
-            rng[i] = std::floor((xmin - 0.5) * std::pow(1 - u[i], -1/(alpha - 1)) + 0.5);
-        }
+	//////////////////////////////////////////////////////////////
+	// generate rng using rounding method from continuous power law distribution
+	for(int i = 0; i <n; i++){
+	    rng[i] = std::floor((xmin - 0.5) * std::pow(1 - u[i], -1/(alpha - 1)) + 0.5);
+	}
 
-        //order if ordered = TRUE
-        if(ordered == true){
-            std::sort(rng.begin(), rng.end());
-        }
+	//order if ordered = TRUE
+	if(ordered == true){
+	    std::sort(rng.begin(), rng.end());
+	}
 
 
     }  // end discrete_max ifelse

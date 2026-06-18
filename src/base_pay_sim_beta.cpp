@@ -2,15 +2,15 @@
 #include <random>
 
 
-
 // [[Rcpp::depends(BH)]]
 // [[Rcpp::depends(RcppArmadillo)]]
-// [[Rcpp::plugins(cpp11)]]
 // [[Rcpp::export]]
 
-arma::vec base_pay_sim_beta(const arma::vec &base_pay_empirical,
-                            const arma::vec &beta_empirical,
-                            const arma::vec &beta_simulated )
+arma::vec base_pay_sim_beta(
+	const arma::vec &base_pay_empirical,
+	const arma::vec &beta_empirical,
+	const arma::vec &beta_simulated 
+	)
 {
 
     int n_firm = base_pay_empirical.size(); // number of firms in emprical sample
@@ -43,9 +43,9 @@ arma::vec base_pay_sim_beta(const arma::vec &base_pay_empirical,
 
     for(int i = 0; i < n_sim_firms; ++i){
 
-        double mu_firm = beta_coef[0] + beta_coef[1]*beta_simulated[i] ;
+	double mu_firm = beta_coef[0] + beta_coef[1]*beta_simulated[i] ;
 
-        base_pay_simululated[i] = std::exp(  sigma*d(gen) + mu_firm);
+	base_pay_simululated[i] = std::exp(  sigma*d(gen) + mu_firm);
 
     }
 
